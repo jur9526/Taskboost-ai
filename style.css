@@ -1435,8 +1435,10 @@ p {
 .tool-logo-api    { background: rgba(124, 58, 237, 0.15); border: 1px solid rgba(124, 58, 237, 0.3); color: var(--purple-400); }
 .tool-logo-gemini { background: rgba(66, 133, 244, 0.15); border: 1px solid rgba(66, 133, 244, 0.3); color: #4285f4; }
 .tool-logo-rag     { background: rgba(99, 179, 237, 0.15); border: 1px solid rgba(99, 179, 237, 0.3); color: #63b3ed; }
-.tool-logo-make    { background: rgba(106, 90, 205, 0.15); border: 1px solid rgba(106, 90, 205, 0.3); color: #6a5acd; }
-.tool-logo-chatbot { background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; }
+.tool-logo-make       { background: rgba(106, 90, 205, 0.15); border: 1px solid rgba(106, 90, 205, 0.3); color: #6a5acd; }
+.tool-logo-chatbot    { background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; }
+.tool-logo-kiro       { background: rgba(232, 121, 249, 0.15); border: 1px solid rgba(232, 121, 249, 0.3); color: #e879f9; }
+.tool-logo-quicksuite { background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.3); color: #fbbf24; }
 
 .tool-info { flex: 1; }
 
