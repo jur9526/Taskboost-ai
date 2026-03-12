@@ -18,7 +18,7 @@ const translations = {
     nav_cta: "Book Consultation",
 
     // HERO
-    hero_badge: "AI Automation · Berlin, Germany",
+    hero_badge: "AI Automation",
     hero_title1: "Automate Workflows.",
     hero_title2: "Scale Smarter.",
     hero_subtitle: "Taskboost.ai builds practical AI automation systems that help e-commerce and real estate companies eliminate manual work, streamline operations, and improve customer interactions.",
@@ -250,7 +250,7 @@ const translations = {
     nav_cta: "Reservar Consulta",
 
     // HERO
-    hero_badge: "Automatización con IA · Berlin, Germany",
+    hero_badge: "Automatización con IA",
     hero_title1: "Automatiza tus Procesos.",
     hero_title2: "Escala con Inteligencia.",
     hero_subtitle: "Taskboost.ai construye sistemas prácticos de automatización con IA que ayudan a empresas de e-commerce e inmobiliarias a eliminar el trabajo manual, optimizar operaciones y mejorar la experiencia del cliente.",
@@ -482,7 +482,7 @@ const translations = {
     nav_cta: "Beratung buchen",
 
     // HERO
-    hero_badge: "KI-Automatisierung · Berlin, Germany",
+    hero_badge: "KI-Automatisierung",
     hero_title1: "Workflows automatisieren.",
     hero_title2: "Intelligenter skalieren.",
     hero_subtitle: "Taskboost.ai entwickelt praxisnahe KI-Automatisierungssysteme, die E-Commerce- und Immobilienunternehmen dabei helfen, manuelle Arbeit zu eliminieren, Abläufe zu optimieren und die Kundenkommunikation zu verbessern.",
