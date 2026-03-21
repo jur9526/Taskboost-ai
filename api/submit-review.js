@@ -73,7 +73,6 @@ module.exports = async function handler(req, res) {
           `Clicking the link above will instantly publish this review on taskboost.ai and close this issue.`,
           `To reject: simply close this issue without clicking the link.`,
         ].join('\n'),
-        labels: ['review-approval'],
       }),
     });
 
