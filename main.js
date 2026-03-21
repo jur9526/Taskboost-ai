@@ -218,7 +218,6 @@ renderReviews();
 
 // Star picker
 const starPicks = document.querySelectorAll('.star-pick');
-const starsInput = document.getElementById('review-stars-input');
 const starsLabel = document.getElementById('stars-label');
 const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
 let selectedStars = 0;
@@ -233,7 +232,6 @@ starPicks.forEach(star => {
   });
   star.addEventListener('click', () => {
     selectedStars = parseInt(star.dataset.val);
-    starsInput.value = selectedStars;
     starPicks.forEach(s => s.classList.toggle('selected', parseInt(s.dataset.val) <= selectedStars));
     if (starsLabel) starsLabel.textContent = labels[selectedStars] + ' (' + selectedStars + '/5)';
   });
@@ -269,7 +267,7 @@ if (reviewForm) {
       if (res.ok) {
         reviewForm.reset();
         selectedStars = 0;
-        starsInput.value = '';
+        selectedStars = 0;
         starPicks.forEach(s => s.classList.remove('selected', 'hovered'));
         if (starsLabel) starsLabel.textContent = 'Select your rating';
         if (success) success.style.display = 'flex';
