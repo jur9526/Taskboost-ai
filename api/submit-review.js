@@ -36,87 +36,45 @@ module.exports = async function handler(req, res) {
     date:    new Date().toISOString().slice(0, 7),
   };
 
+  const secret     = process.env.APPROVE_SECRET || 'fallback-secret';
+  const payload    = toB64u(JSON.stringify(review));
+  const sig        = crypto.createHmac('sha256', secret).update(payload).digest('hex');
+  const token      = `${payload}.${sig}`;
+  const siteUrl    = (process.env.SITE_URL || 'https://taskboost.ai').replace(/\/$/, '');
+  const approveUrl = `${siteUrl}/api/approve-review?token=${token}`;
+
+  const stars_display = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
+  const meta = [review.name, review.company, review.role].filter(Boolean).join(' · ');
+
   try {
-    const secret     = process.env.APPROVE_SECRET || 'fallback-secret';
-    const payload    = toB64u(JSON.stringify(review));
-    const sig        = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-    const token      = `${payload}.${sig}`;
-    const siteUrl    = (process.env.SITE_URL || 'https://taskboost.ai').replace(/\/$/, '');
-    const approveUrl = `${siteUrl}/api/approve-review?token=${token}`;
-
-    const stars_display = '★'.repeat(review.stars) + '☆'.repeat(5 - review.stars);
-    const meta = [review.name, review.company, review.role].filter(Boolean).join(' · ');
-
-    // Create a GitHub issue — GitHub emails you automatically
-    const issueRes = await fetch('https://api.github.com/repos/jur9526/Taskboost-ai/issues', {
+    const emailRes = await fetch('https://api.web3forms.com/submit', {
       method:  'POST',
-      headers: {
-        'Authorization':        `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Accept':               'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type':         'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: `New review: ${review.name} — ${stars_display}`,
-        body: [
-          `## New review awaiting approval`,
+        access_key: 'fc8de293-5f94-4d3d-b1f8-0367aea00aa3',
+        subject:    `New review from ${review.name} — ${review.stars}/5 stars`,
+        from_name:  'Taskboost.ai Reviews',
+        message: [
+          `New review awaiting your approval`,
           ``,
-          `**From:** ${meta}`,
-          `**Stars:** ${stars_display} (${review.stars}/5)`,
+          `From:  ${meta}`,
+          `Stars: ${stars_display} (${review.stars}/5)`,
           ``,
-          `> ${review.text}`,
+          `"${review.text}"`,
           ``,
-          `---`,
+          `APPROVE AND PUBLISH:`,
+          `${approveUrl}`,
           ``,
-          `## ✅ [Click here to approve and publish](${approveUrl})`,
-          ``,
-          `Clicking the link above will instantly publish this review on taskboost.ai and close this issue.`,
-          `To reject: simply close this issue without clicking the link.`,
+          `Ignore this email to reject the review.`,
         ].join('\n'),
       }),
     });
 
-    if (!issueRes.ok) {
-      const err = await issueRes.text();
-      console.error('GitHub issue error:', err);
-      return res.status(500).json({ error: `GitHub ${issueRes.status}: ${err}` });
+    if (!emailRes.ok) {
+      const err = await emailRes.text();
+      console.error('Web3Forms error:', emailRes.status, err);
+      return res.status(500).json({ error: `Email error ${emailRes.status}` });
     }
-
-    // Rebuild token with issue_number so approve can close the issue
-    const issueData = await issueRes.json();
-    const reviewWithIssue = { ...review, issue_number: issueData.number };
-    const payload2    = toB64u(JSON.stringify(reviewWithIssue));
-    const sig2        = crypto.createHmac('sha256', secret).update(payload2).digest('hex');
-    const token2      = `${payload2}.${sig2}`;
-    const approveUrl2 = `${siteUrl}/api/approve-review?token=${token2}`;
-
-    // Update the issue body with the correct approve link
-    await fetch(`https://api.github.com/repos/jur9526/Taskboost-ai/issues/${issueData.number}`, {
-      method:  'PATCH',
-      headers: {
-        'Authorization':        `Bearer ${process.env.GITHUB_TOKEN}`,
-        'Accept':               'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        'Content-Type':         'application/json',
-      },
-      body: JSON.stringify({
-        body: [
-          `## New review awaiting approval`,
-          ``,
-          `**From:** ${meta}`,
-          `**Stars:** ${stars_display} (${review.stars}/5)`,
-          ``,
-          `> ${review.text}`,
-          ``,
-          `---`,
-          ``,
-          `## ✅ [Click here to approve and publish](${approveUrl2})`,
-          ``,
-          `Clicking the link above will instantly publish this review on taskboost.ai and close this issue.`,
-          `To reject: simply close this issue without clicking the link.`,
-        ].join('\n'),
-      }),
-    }).catch(() => {});
 
     return res.status(200).json({ ok: true });
 
