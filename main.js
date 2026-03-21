@@ -267,6 +267,20 @@ if (reviewForm) {
         }),
       });
       if (res.ok) {
+        const data = await res.json();
+
+        // Send notification email from browser via Web3Forms (browser calls always work)
+        const notify = new FormData();
+        notify.append('access_key', 'fc8de293-5f94-4d3d-b1f8-0367aea00aa3');
+        notify.append('subject', `New review from ${data.reviewName} — ${data.stars}/5 stars`);
+        notify.append('from_name', 'Taskboost.ai Reviews');
+        notify.append('message',
+          `New review is now LIVE on taskboost.ai:\n\n` +
+          `From: ${data.reviewName}\nStars: ${data.stars}/5\n\n"${data.text}"\n\n` +
+          `To DELETE this review click:\n${data.deleteUrl}`
+        );
+        fetch('https://api.web3forms.com/submit', { method: 'POST', body: notify }).catch(() => {});
+
         reviewForm.reset();
         selectedStars = 0;
         paintStars(0);
