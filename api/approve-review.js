@@ -78,6 +78,15 @@ module.exports = async function handler(req, res) {
       return res.status(500).send('Failed to publish review. Check GITHUB_TOKEN permissions.');
     }
 
+    // Close the GitHub issue if issue_number is in the token (best-effort)
+    if (review.issue_number) {
+      await fetch(`https://api.github.com/repos/jur9526/Taskboost-ai/issues/${review.issue_number}`, {
+        method:  'PATCH',
+        headers: { ...ghHeaders, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ state: 'closed' }),
+      }).catch(() => {});
+    }
+
     const siteUrl = (process.env.SITE_URL || 'https://taskboost.ai').replace(/\/$/, '');
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.status(200).send(`<!DOCTYPE html>
