@@ -79,7 +79,7 @@ module.exports = async function handler(req, res) {
     if (!issueRes.ok) {
       const err = await issueRes.text();
       console.error('GitHub issue error:', err);
-      return res.status(500).json({ error: 'Failed to create notification' });
+      return res.status(500).json({ error: `GitHub ${issueRes.status}: ${err}` });
     }
 
     // Rebuild token with issue_number so approve can close the issue
