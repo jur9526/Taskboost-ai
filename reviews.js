@@ -22,4 +22,13 @@
 
 window.APPROVED_REVIEWS = [
 
+  {
+    name: "Floribeth Elizondo",
+    company: "Residencias Costa Rica",
+    role: "CEO",
+    stars: 5,
+    text: "Working with TaskBoost.ai completely transformed our business. They built our website and implemented a fully automated WhatsApp system that handles inquiries, bookings, and scheduling 24/7. Our response times improved dramatically, and our team can now focus entirely on our clients. Highly recommended.",
+    date: "2026-03",
+    id: "1774134919025"
+  },
 ];
