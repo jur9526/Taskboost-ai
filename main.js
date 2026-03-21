@@ -222,17 +222,19 @@ const starsLabel = document.getElementById('stars-label');
 const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
 let selectedStars = 0;
 
+function paintStars(count) {
+  starPicks.forEach((s, i) => {
+    s.style.color     = i < count ? '#F59E0B' : '#D1D5DB';
+    s.style.transform = i < count ? 'scale(1.15)' : 'scale(1)';
+  });
+}
+
 starPicks.forEach(star => {
-  star.addEventListener('mouseenter', () => {
-    const val = parseInt(star.dataset.val);
-    starPicks.forEach(s => s.classList.toggle('hovered', parseInt(s.dataset.val) <= val));
-  });
-  star.addEventListener('mouseleave', () => {
-    starPicks.forEach(s => s.classList.remove('hovered'));
-  });
+  star.addEventListener('mouseenter', () => paintStars(parseInt(star.dataset.val)));
+  star.addEventListener('mouseleave', () => paintStars(selectedStars));
   star.addEventListener('click', () => {
     selectedStars = parseInt(star.dataset.val);
-    starPicks.forEach(s => s.classList.toggle('selected', parseInt(s.dataset.val) <= selectedStars));
+    paintStars(selectedStars);
     if (starsLabel) starsLabel.textContent = labels[selectedStars] + ' (' + selectedStars + '/5)';
   });
 });
@@ -267,8 +269,7 @@ if (reviewForm) {
       if (res.ok) {
         reviewForm.reset();
         selectedStars = 0;
-        selectedStars = 0;
-        starPicks.forEach(s => s.classList.remove('selected', 'hovered'));
+        paintStars(0);
         if (starsLabel) starsLabel.textContent = 'Select your rating';
         if (success) success.style.display = 'flex';
       } else {
