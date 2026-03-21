@@ -49,6 +49,7 @@
         <li><a href="#industries" class="nav-link" data-i18n="nav_industries">Industries</a></li>
         <li><a href="#how-it-works" class="nav-link" data-i18n="nav_how">How It Works</a></li>
         <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+        <li><a href="#reviews" class="nav-link" data-i18n="nav_reviews">Reviews</a></li>
         <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
       </ul>
 
@@ -95,6 +96,11 @@
             e-commerce and real estate companies eliminate manual work,<br class="break-lg" />
             streamline operations, and improve customer interactions.
           </p>
+
+          <div class="hero-ethics-badge">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span data-i18n="hero_ethics">AI Ethics is our core value — we build automation that is transparent, fair, and human-first.</span>
+          </div>
 
           <div class="hero-ctas">
             <a href="#contact" class="btn btn-primary btn-lg">
@@ -607,6 +613,24 @@
             <h3 data-i18n="sol7_h">AI Knowledge Assistant</h3>
             <p data-i18n="sol7_p">Deploy an internal AI assistant trained on your company knowledge — for your team or your customers.</p>
             <div class="solution-tag" data-i18n="sol7_tag">Knowledge AI</div>
+          </div>
+
+          <div class="solution-card reveal">
+            <div class="solution-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <h3 data-i18n="sol8_h">AI-Powered Website Development</h3>
+            <p data-i18n="sol8_p">We design and build fast, modern websites for your business — optimized for conversions, mobile-first, and ready to connect with your AI automation stack from day one.</p>
+            <div class="solution-tag" data-i18n="sol8_tag">Web Development</div>
+          </div>
+
+          <div class="solution-card reveal">
+            <div class="solution-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </div>
+            <h3 data-i18n="sol9_h">Visibility on Google & AI Search</h3>
+            <p data-i18n="sol9_p">We optimize your online presence so your business gets found — on Google, and inside AI assistants like ChatGPT, Claude, Gemini, and Perplexity. The future of search is AI-driven.</p>
+            <div class="solution-tag" data-i18n="sol9_tag">AI Search & SEO</div>
           </div>
 
           <div class="solution-card solution-card-cta reveal">
@@ -1130,6 +1154,81 @@
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════════════════════
+         REVIEWS
+    ═══════════════════════════════════════════════════════════════ -->
+    <section class="section section-light" id="reviews">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label" data-i18n="rev_label">Client Reviews</p>
+          <h2 class="section-title" data-i18n="rev_title">What our clients say</h2>
+          <p class="section-subtitle" data-i18n="rev_sub">
+            Real results from real businesses. Every review is verified and approved before it appears here.
+          </p>
+        </div>
+
+        <!-- Approved reviews rendered by reviews.js + main.js -->
+        <div class="reviews-grid" id="reviews-grid"></div>
+
+        <!-- Submit a review -->
+        <div class="review-form-wrap reveal">
+          <div class="review-form-card">
+            <div class="review-form-header">
+              <h3 data-i18n="rev_form_h">Worked with us? Leave a review</h3>
+              <p data-i18n="rev_form_sub">Your review will be sent to our team for approval before going live.</p>
+            </div>
+
+            <form id="review-form">
+              <input type="hidden" name="access_key" value="fc8de293-5f94-4d3d-b1f8-0367aea00aa3" />
+              <input type="hidden" name="subject" value="⭐ New Review Awaiting Approval — Taskboost.ai" />
+              <input type="hidden" name="from_name" value="Taskboost.ai Reviews" />
+              <input type="hidden" name="stars" id="review-stars-input" value="" />
+
+              <div class="review-stars-picker" id="stars-picker" aria-label="Star rating">
+                <span class="star-pick" data-val="1">★</span>
+                <span class="star-pick" data-val="2">★</span>
+                <span class="star-pick" data-val="3">★</span>
+                <span class="star-pick" data-val="4">★</span>
+                <span class="star-pick" data-val="5">★</span>
+                <span class="star-pick-label" id="stars-label">Select your rating</span>
+              </div>
+
+              <div class="review-form-row">
+                <div class="form-group">
+                  <label data-i18n="rev_name">Your Name *</label>
+                  <input type="text" name="name" required placeholder="Jane Smith" />
+                </div>
+                <div class="form-group">
+                  <label data-i18n="rev_company">Company (optional)</label>
+                  <input type="text" name="company" placeholder="Acme Inc." />
+                </div>
+              </div>
+              <div class="form-group">
+                <label data-i18n="rev_role">Your Role (optional)</label>
+                <input type="text" name="role" placeholder="CEO, Operations Manager..." />
+              </div>
+              <div class="form-group">
+                <label data-i18n="rev_text">Your Review *</label>
+                <textarea name="message" rows="4" required placeholder="Tell others about your experience working with Taskboost.ai..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full" id="review-submit-btn">
+                <span data-i18n="rev_submit">Submit Review</span>
+              </button>
+              <p class="review-form-note" data-i18n="rev_note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Reviewed by our team before publishing · Your email is never shared
+              </p>
+              <div class="review-success" id="review-success">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                <span data-i18n="rev_success">Thank you! We'll review your submission and publish it soon.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════════
@@ -1206,6 +1305,7 @@
   </footer>
 
   <script src="lang.js"></script>
+  <script src="reviews.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

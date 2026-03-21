@@ -178,3 +178,101 @@ const sectionObserver = new IntersectionObserver((entries) => {
 });
 
 sections.forEach(section => sectionObserver.observe(section));
+
+// ── REVIEWS ──────────────────────────────────────────────────────
+
+// Render approved reviews from reviews.js
+function renderReviews() {
+  const grid = document.getElementById('reviews-grid');
+  if (!grid) return;
+  const reviews = window.APPROVED_REVIEWS || [];
+
+  if (!reviews.length) {
+    grid.innerHTML = '<p class="reviews-empty">Be the first to leave a review below.</p>';
+    return;
+  }
+
+  grid.innerHTML = reviews.map(r => {
+    const initials = (r.name || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    const stars = Array.from({ length: 5 }, (_, i) =>
+      `<span class="review-star${i < r.stars ? '' : ' empty'}">★</span>`).join('');
+    const meta = [r.role, r.company].filter(Boolean).join(' · ');
+    return `
+      <div class="review-card reveal">
+        <div class="review-stars">${stars}</div>
+        <p class="review-text">${r.text}</p>
+        <div class="review-author">
+          <div class="review-avatar">${initials}</div>
+          <div class="review-author-info">
+            <strong>${r.name}</strong>
+            ${meta ? `<span>${meta}</span>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+renderReviews();
+
+// Star picker
+const starPicks = document.querySelectorAll('.star-pick');
+const starsInput = document.getElementById('review-stars-input');
+const starsLabel = document.getElementById('stars-label');
+const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+let selectedStars = 0;
+
+starPicks.forEach(star => {
+  star.addEventListener('mouseenter', () => {
+    const val = parseInt(star.dataset.val);
+    starPicks.forEach(s => s.classList.toggle('hovered', parseInt(s.dataset.val) <= val));
+  });
+  star.addEventListener('mouseleave', () => {
+    starPicks.forEach(s => s.classList.remove('hovered'));
+  });
+  star.addEventListener('click', () => {
+    selectedStars = parseInt(star.dataset.val);
+    starsInput.value = selectedStars;
+    starPicks.forEach(s => s.classList.toggle('selected', parseInt(s.dataset.val) <= selectedStars));
+    if (starsLabel) starsLabel.textContent = labels[selectedStars] + ' (' + selectedStars + '/5)';
+  });
+});
+
+// Review form submit
+const reviewForm = document.getElementById('review-form');
+if (reviewForm) {
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!selectedStars) {
+      starsLabel.textContent = '⚠ Please select a star rating';
+      starsLabel.style.color = '#ef4444';
+      return;
+    }
+    const btn = document.getElementById('review-submit-btn');
+    const success = document.getElementById('review-success');
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Sending...';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(reviewForm)
+      });
+      if (res.ok) {
+        reviewForm.reset();
+        selectedStars = 0;
+        starsInput.value = '';
+        starPicks.forEach(s => s.classList.remove('selected', 'hovered'));
+        if (starsLabel) starsLabel.textContent = 'Select your rating';
+        if (success) success.style.display = 'flex';
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      alert('Connection error. Please try again.');
+    } finally {
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Submit Review';
+    }
+  });
+}
