@@ -254,9 +254,17 @@ if (reviewForm) {
     btn.disabled = true;
     btn.querySelector('span').textContent = 'Sending...';
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: new FormData(reviewForm)
+      const fd  = new FormData(reviewForm);
+      const res = await fetch('/api/submit-review', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    fd.get('name'),
+          company: fd.get('company'),
+          role:    fd.get('role'),
+          message: fd.get('message'),
+          stars:   selectedStars,
+        }),
       });
       if (res.ok) {
         reviewForm.reset();
