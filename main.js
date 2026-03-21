@@ -273,7 +273,8 @@ if (reviewForm) {
         if (starsLabel) starsLabel.textContent = 'Select your rating';
         if (success) success.style.display = 'flex';
       } else {
-        alert('Something went wrong. Please try again.');
+        const data = await res.json().catch(() => ({}));
+        alert('Something went wrong: ' + (data.error || res.status));
       }
     } catch {
       alert('Connection error. Please try again.');
