@@ -30,7 +30,7 @@ module.exports = async function handler(req, res) {
   const repo   = 'jur9526/Taskboost-ai';
   const apiUrl = `https://api.github.com/repos/${repo}/contents/reviews.js`;
   const ghHeaders = {
-    'Authorization':        `token ${process.env.GITHUB_TOKEN}`,
+    'Authorization':        `Bearer ${process.env.GITHUB_TOKEN}`,
     'Accept':               'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
   };

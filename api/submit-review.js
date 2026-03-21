@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
     const issueRes = await fetch('https://api.github.com/repos/jur9526/Taskboost-ai/issues', {
       method:  'POST',
       headers: {
-        'Authorization':        `token ${process.env.GITHUB_TOKEN}`,
+        'Authorization':        `Bearer ${process.env.GITHUB_TOKEN}`,
         'Accept':               'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
         'Content-Type':         'application/json',
@@ -94,7 +94,7 @@ module.exports = async function handler(req, res) {
     await fetch(`https://api.github.com/repos/jur9526/Taskboost-ai/issues/${issueData.number}`, {
       method:  'PATCH',
       headers: {
-        'Authorization':        `token ${process.env.GITHUB_TOKEN}`,
+        'Authorization':        `Bearer ${process.env.GITHUB_TOKEN}`,
         'Accept':               'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
         'Content-Type':         'application/json',
