@@ -493,6 +493,7 @@ p {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-top: 3rem;
   margin-bottom: 2.5rem;
 }
 
@@ -2371,6 +2372,7 @@ p {
   align-items: center;
   gap: 0.5rem;
   margin-top: 1.25rem;
+  margin-bottom: 3rem;
   padding: 0.45rem 1rem;
   background: rgba(139,92,246,0.12);
   border: 1px solid rgba(139,92,246,0.3);
