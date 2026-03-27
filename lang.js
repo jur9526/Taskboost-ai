@@ -33,8 +33,8 @@ const translations = {
 
     // HERO
     hero_badge: "Only 4 spots left this month",
-    hero_title1: "Stop Losing Sales",
-    hero_title2: "to Manual Work.",
+    hero_title1: "Get More Clients.",
+    hero_title2: "While You Sleep.",
     hero_ethics: "AI Ethics is our core value — we build automation that is transparent, fair, and human-first.",
     hero_subtitle: "We build a system that responds to your clients instantly, books appointments, follows up on leads, and posts on social media — automatically, while you sleep.",
     hero_cta1: "Get My Free AI Audit →",
