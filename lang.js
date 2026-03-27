@@ -202,7 +202,7 @@ const translations = {
     found2_bio: "Philosopher with an IT background who ensures every system we build is grounded in ethical principles. Brings a rare combination of technical knowledge and philosophical rigor — shaping how Taskboost.ai thinks about AI responsibility, transparency, and long-term impact.",
     ethics_h: "Our commitment to ethical AI",
     ethics_p: "We believe AI automation should empower people — not replace their judgment, compromise their privacy, or create systems they don't understand. Every automation we build is designed to be transparent, fair, and genuinely useful. Philosophy isn't a side interest here — it shapes how we think about every system we build.",
-    berlin_badge: "Founded March 2026 · Berlin, Germany",
+    berlin_badge: "Berlin, Germany",
 
     // CONTACT
     contact_label: "Get in Touch",
@@ -455,7 +455,7 @@ const translations = {
     found2_bio: "Filósofo con formación en IT que garantiza que cada sistema que construimos esté fundamentado en principios éticos. Aporta una combinación única de conocimiento técnico y rigor filosófico — moldeando cómo Taskboost.ai concibe la responsabilidad de la IA, la transparencia y el impacto a largo plazo.",
     ethics_h: "Nuestro compromiso con la IA ética",
     ethics_p: "Creemos que la automatización con IA debe empoderar a las personas — no reemplazar su criterio, comprometer su privacidad ni crear sistemas que no comprenden. Cada automatización que construimos está diseñada para ser transparente, justa y genuinamente útil. La filosofía no es un interés secundario aquí — moldea cómo pensamos en cada sistema que construimos.",
-    berlin_badge: "Fundada en marzo de 2026 · Berlin, Germany",
+    berlin_badge: "Berlin, Germany",
 
     // CONTACT
     contact_label: "Ponte en Contacto",
@@ -708,7 +708,7 @@ const translations = {
     found2_bio: "Philosoph mit IT-Hintergrund, der sicherstellt, dass jedes System, das wir bauen, auf ethischen Grundsätzen beruht. Bringt eine seltene Kombination aus technischem Wissen und philosophischer Strenge mit — und prägt, wie Taskboost.ai über KI-Verantwortung, Transparenz und langfristige Auswirkungen denkt.",
     ethics_h: "Unser Engagement für ethische KI",
     ethics_p: "Wir glauben, dass KI-Automatisierung Menschen stärken sollte — nicht ihr Urteilsvermögen ersetzen, ihre Privatsphäre gefährden oder Systeme schaffen, die sie nicht verstehen. Jede Automatisierung, die wir entwickeln, ist darauf ausgelegt, transparent, fair und genuinely nützlich zu sein. Philosophie ist hier kein Nebenhobby — sie prägt, wie wir über jedes System nachdenken, das wir bauen.",
-    berlin_badge: "Gegründet im März 2026 · Berlin, Germany",
+    berlin_badge: "Berlin, Germany",
 
     // CONTACT
     contact_label: "Kontakt aufnehmen",

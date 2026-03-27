@@ -175,13 +175,21 @@
           </div>
         </div>
 
-        <!-- Floating automation cards -->
+        <!-- Hero Visual: Chatbot front & center, robot powering it -->
         <div class="hero-visual fade-in-delay">
 
-          <!-- Robot + Logo side by side -->
-          <div class="hero-visual-top">
-            <div class="hero-robot">
-              <svg class="robot-svg" viewBox="0 0 200 272" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Logo badge at top -->
+          <div class="hv-logo-badge">
+            <img src="assets/logo.png" alt="Taskboost.ai" />
+            <span>Powered by Taskboost.ai</span>
+          </div>
+
+          <!-- Main scene: robot left + phone right -->
+          <div class="hv-scene">
+
+            <!-- Robot (side, smaller — "working") -->
+            <div class="hv-robot-wrap">
+              <svg class="robot-svg robot-svg-sm" viewBox="0 0 200 272" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <defs>
                   <filter id="r-glow" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -200,53 +208,31 @@
                     <stop offset="100%" stop-color="#2d0a5c"/>
                   </linearGradient>
                 </defs>
-
-                <!-- Antenna -->
                 <line x1="100" y1="40" x2="100" y2="18" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
                 <circle class="r-antenna" cx="100" cy="12" r="7" fill="#a78bfa" filter="url(#r-glow)"/>
                 <circle cx="100" cy="12" r="3.5" fill="#ffffff" opacity="0.6"/>
-
-                <!-- Head -->
                 <rect x="58" y="40" width="84" height="68" rx="14" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.5"/>
-
-                <!-- Eye sockets -->
                 <circle cx="80" cy="62" r="11" fill="#0d0620"/>
                 <circle cx="120" cy="62" r="11" fill="#0d0620"/>
-
-                <!-- Eyes (glow) -->
                 <circle class="r-eye" cx="80" cy="62" r="6.5" fill="#a78bfa" filter="url(#r-glow)"/>
                 <circle class="r-eye" cx="120" cy="62" r="6.5" fill="#a78bfa" filter="url(#r-glow)"/>
                 <circle cx="80" cy="60" r="2.5" fill="#ffffff" opacity="0.5"/>
                 <circle cx="120" cy="60" r="2.5" fill="#ffffff" opacity="0.5"/>
-
-                <!-- Face screen / mouth -->
                 <rect x="66" y="82" width="68" height="17" rx="5" fill="#0d0620"/>
                 <rect class="r-bar1" x="69" y="86" width="22" height="9" rx="2.5" fill="#7c3aed"/>
                 <rect class="r-bar2" x="94" y="86" width="14" height="9" rx="2.5" fill="#a78bfa" opacity="0.6"/>
                 <rect class="r-bar3" x="111" y="86" width="18" height="9" rx="2.5" fill="#5b21b6" opacity="0.5"/>
-
-                <!-- Neck -->
                 <rect x="88" y="108" width="24" height="10" rx="4" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1"/>
-
-                <!-- Body -->
                 <rect x="44" y="116" width="112" height="92" rx="14" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.5"/>
-
-                <!-- Body screen -->
                 <rect x="57" y="127" width="86" height="60" rx="7" fill="#0a0418"/>
-                <!-- Code lines -->
                 <rect class="r-cl1" x="63" y="135" width="40" height="3.5" rx="1.75" fill="#7c3aed"/>
                 <rect class="r-cl2" x="63" y="143" width="58" height="3.5" rx="1.75" fill="#a78bfa" opacity="0.6"/>
                 <rect class="r-cl3" x="63" y="151" width="32" height="3.5" rx="1.75" fill="#7c3aed" opacity="0.7"/>
                 <rect class="r-cl4" x="63" y="159" width="50" height="3.5" rx="1.75" fill="#a78bfa" opacity="0.45"/>
                 <rect class="r-cl5" x="63" y="167" width="22" height="3.5" rx="1.75" fill="#8b5cf6" opacity="0.8"/>
-                <!-- Cursor -->
                 <rect class="r-cursor" x="87" y="166" width="2.5" height="10" rx="1.25" fill="#c4b5fd"/>
-
-                <!-- Power LED -->
                 <circle class="r-power" cx="100" cy="198" r="5" fill="#7c3aed" filter="url(#r-glow-sm)"/>
                 <circle cx="100" cy="198" r="2.5" fill="#a78bfa"/>
-
-                <!-- Left Arm -->
                 <g class="r-arm-l">
                   <rect x="10" y="120" width="32" height="14" rx="7" fill="url(#r-arm-grad)" stroke="#7c3aed" stroke-width="1.2"/>
                   <circle cx="44" cy="127" r="7" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1.2"/>
@@ -254,8 +240,6 @@
                   <rect x="9" y="112" width="5" height="8" rx="2.5" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1"/>
                   <rect x="17" y="111" width="5" height="9" rx="2.5" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1"/>
                 </g>
-
-                <!-- Right Arm -->
                 <g class="r-arm-r">
                   <rect x="158" y="120" width="32" height="14" rx="7" fill="url(#r-arm-grad)" stroke="#7c3aed" stroke-width="1.2"/>
                   <circle cx="156" cy="127" r="7" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1.2"/>
@@ -263,68 +247,130 @@
                   <rect x="176" y="112" width="5" height="8" rx="2.5" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1"/>
                   <rect x="184" y="111" width="5" height="9" rx="2.5" fill="#1e0b3d" stroke="#7c3aed" stroke-width="1"/>
                 </g>
-
-                <!-- Legs -->
                 <rect x="65" y="207" width="28" height="40" rx="9" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.3"/>
                 <rect x="107" y="207" width="28" height="40" rx="9" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.3"/>
-
-                <!-- Feet -->
                 <rect x="58" y="238" width="40" height="18" rx="9" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.3"/>
                 <rect x="102" y="238" width="40" height="18" rx="9" fill="url(#r-body-grad)" stroke="#7c3aed" stroke-width="1.3"/>
-
-                <!-- Ground shadow -->
                 <ellipse cx="100" cy="262" rx="52" ry="5" fill="#7c3aed" opacity="0.18"/>
               </svg>
 
-              <!-- Status badges -->
-              <div class="robot-badge robot-badge-l">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <!-- Status badge on robot -->
+              <div class="robot-badge hv-robot-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 Automating…
               </div>
-              <div class="robot-badge robot-badge-r">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-                AI Active
+
+              <!-- Connector dots robot → phone -->
+              <div class="hv-connector">
+                <span></span><span></span><span></span>
               </div>
             </div>
 
-            <div class="hero-visual-logo">
-              <img src="assets/logo.png" alt="Taskboost.ai" />
+          <!-- Animated phone demo -->
+          <div class="phone-demo">
+
+            <!-- Industry tabs -->
+            <div class="demo-tabs">
+              <button class="demo-tab active" data-demo="realestate">🏠 Real Estate</button>
+              <button class="demo-tab" data-demo="ecommerce">🛍️ E-Commerce</button>
             </div>
+
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+
+                <!-- Real Estate — WhatsApp style -->
+                <div class="chat-scenario" id="demo-realestate">
+                  <div class="chat-header chat-header-wa">
+                    <div class="wa-back">‹</div>
+                    <div class="chat-avatar chat-avatar-wa">
+                      <!-- WhatsApp logo -->
+                      <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="24" cy="24" r="24" fill="#25D366"/>
+                        <path d="M34.5 13.5C32 11 28.7 9.5 25.1 9.5C17.6 9.5 11.5 15.6 11.5 23.1C11.5 25.6 12.2 28 13.4 30.1L11.4 38.5L20 36.6C22 37.7 24.3 38.3 26.7 38.3C34.2 38.3 40.3 32.2 40.3 24.7C40.3 21.1 38.9 17.7 36.5 15.3L34.5 13.5Z" fill="white"/>
+                        <path d="M25.1 36C22.9 36 20.8 35.4 18.9 34.4L18.4 34.1L14.4 35.1L15.4 31.2L15.1 30.7C14 28.7 13.4 26.4 13.4 24C13.4 16.7 19.4 10.8 26.8 10.8C30.3 10.8 33.6 12.2 36 14.6C38.4 17 39.8 20.2 39.7 23.7C39.7 31 33.7 36 25.1 36ZM32.3 27.3C31.9 27.1 30 26.2 29.6 26C29.2 25.9 29 25.8 28.7 26.2C28.4 26.6 27.7 27.4 27.5 27.7C27.3 27.9 27.1 28 26.7 27.8C26.3 27.6 25 27.2 23.5 25.8C22.3 24.7 21.5 23.4 21.3 23C21.1 22.6 21.3 22.4 21.5 22.2C21.7 22 21.9 21.7 22.1 21.5C22.3 21.3 22.3 21.1 22.5 20.8C22.6 20.5 22.6 20.3 22.5 20.1C22.4 19.9 21.5 18 21.2 17.2C20.9 16.5 20.5 16.5 20.3 16.5H19.7C19.4 16.5 19 16.6 18.6 17C18.2 17.4 17.2 18.3 17.2 20.2C17.2 22.1 18.6 23.9 18.8 24.2C19 24.5 21.5 28.2 25.2 29.9C26.1 30.3 26.8 30.5 27.4 30.7C28.3 31 29.1 30.9 29.7 30.8C30.4 30.7 31.9 29.9 32.2 29C32.5 28.2 32.5 27.5 32.3 27.3Z" fill="#25D366"/>
+                      </svg>
+                    </div>
+                    <div class="chat-info">
+                      <div class="chat-name">Your Real Estate Agent</div>
+                      <div class="chat-status-wa">● online</div>
+                    </div>
+                    <div class="wa-icons">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    </div>
+                  </div>
+                  <div class="chat-body chat-body-wa">
+                    <div class="wa-date-divider">Today</div>
+                    <div class="chat-msg msg-in anim-1">Hi! I saw a 3BR house on your site, still available? 🏠</div>
+                    <div class="chat-typing anim-2"><span></span><span></span><span></span></div>
+                    <div class="chat-msg msg-out-wa anim-3">Yes! 3 bed · 2 bath · $285k 🏡 Want to book a viewing this week?<span class="wa-tick">✓✓</span></div>
+                    <div class="chat-msg msg-in anim-4">Yes! Saturday morning works</div>
+                    <div class="chat-typing anim-5"><span></span><span></span><span></span></div>
+                    <div class="chat-msg msg-out-wa anim-6">Done! Saturday 10am confirmed. I'll send the address here 📍<span class="wa-tick">✓✓</span></div>
+                    <div class="chat-confirmed anim-7">✓ Viewing booked · Lead saved to CRM</div>
+                  </div>
+                </div>
+
+                <!-- E-Commerce — Rich chatbot widget -->
+                <div class="chat-scenario hidden" id="demo-ecommerce">
+                  <div class="chat-header chat-header-bot">
+                    <div class="bot-avatar">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                    </div>
+                    <div class="chat-info">
+                      <div class="chat-name">TrendShop Assistant</div>
+                      <div class="chat-status bot-online"><span class="bot-dot"></span>AI · Always online</div>
+                    </div>
+                    <div class="bot-minimize">—</div>
+                  </div>
+
+                  <div class="chat-body chat-body-bot">
+
+                    <!-- Quick reply chips -->
+                    <div class="bot-chips anim-1">
+                      <span class="bot-chip">📦 Track order</span>
+                      <span class="bot-chip bot-chip-active">🔄 Return item</span>
+                      <span class="bot-chip">❓ Help</span>
+                    </div>
+
+                    <div class="chat-msg msg-in anim-2">Where's my package? #4821</div>
+
+                    <div class="chat-typing anim-3"><span></span><span></span><span></span></div>
+
+                    <!-- Rich order card response -->
+                    <div class="bot-card anim-4">
+                      <div class="bot-card-header">
+                        <span class="bot-label">AI</span>
+                        <span class="bot-card-title">Order #4821</span>
+                      </div>
+                      <div class="bot-track">
+                        <div class="track-step track-done">✓ Ordered</div>
+                        <div class="track-line track-line-done"></div>
+                        <div class="track-step track-done">✓ Packed</div>
+                        <div class="track-line track-line-done"></div>
+                        <div class="track-step track-active">🚚 Transit</div>
+                        <div class="track-line"></div>
+                        <div class="track-step">📬 Delivered</div>
+                      </div>
+                      <div class="bot-card-eta">🕕 Arriving tomorrow before 6pm</div>
+                    </div>
+
+                    <div class="chat-confirmed anim-5">✓ Resolved instantly · No agent needed</div>
+
+                  </div>
+                  <div class="bot-input-bar">
+                    <span class="bot-input-placeholder">Type a message…</span>
+                    <span class="bot-send">➤</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="phone-badge-bottom">⚡ Responded in 1.4 seconds — while you were sleeping</div>
           </div>
 
-          <div class="automation-card card-1">
-            <div class="automation-card-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            </div>
-            <div class="automation-card-content">
-              <div class="automation-card-label" data-i18n="card1_label">Lead Qualification</div>
-              <div class="automation-card-value" data-i18n="card1_value">247 leads processed</div>
-              <div class="automation-card-bar"><div class="automation-card-fill" style="width:87%"></div></div>
-            </div>
-          </div>
-
-          <div class="automation-card card-2">
-            <div class="automation-card-icon green">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-            </div>
-            <div class="automation-card-content">
-              <div class="automation-card-label" data-i18n="card2_label">AI Support Response</div>
-              <div class="automation-card-value" data-i18n="card2_value">Response in &lt; 2 seconds</div>
-              <div class="automation-card-bar"><div class="automation-card-fill green" style="width:95%"></div></div>
-            </div>
-          </div>
-
-          <div class="automation-card card-3">
-            <div class="automation-card-icon amber">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-            </div>
-            <div class="automation-card-content">
-              <div class="automation-card-label" data-i18n="card3_label">Manual Tasks Saved</div>
-              <div class="automation-card-value" data-i18n="card3_value">~80% reduction</div>
-              <div class="automation-card-bar"><div class="automation-card-fill amber" style="width:80%"></div></div>
-            </div>
-          </div>
-        </div>
+          </div><!-- /hv-scene -->
+        </div><!-- /hero-visual -->
       </div>
 
       <div class="hero-scroll">
@@ -344,29 +390,44 @@
       <div class="container">
         <div class="qs-grid">
           <div class="qs-card">
-            <div class="qs-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.469 2 2 6.478 2 12.01c0 1.922.526 3.72 1.432 5.264L2 22l4.863-1.406A9.934 9.934 0 0011.99 22C17.52 22 22 17.522 22 12c0-5.514-4.48-10-10.01-10z"/></svg>
+            <div class="qs-mini-demo wa-demo">
+              <div class="mini-msg mini-in">How much does it cost?</div>
+              <div class="mini-msg mini-out">Hi! Plans start at $299 😊 Want a free demo?</div>
+              <div class="mini-msg mini-in">Yes please!</div>
+              <div class="mini-badge">✓ Booked in 30 seconds</div>
             </div>
             <h3>WhatsApp that sells for you</h3>
             <p>Customers message you — AI responds instantly, qualifies them, and books a call. You wake up to a full calendar.</p>
           </div>
           <div class="qs-card">
-            <div class="qs-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+            <div class="qs-mini-demo cal-demo">
+              <div class="cal-row"><span class="cal-day">Mon</span><span class="cal-slot taken">✓ Booked</span></div>
+              <div class="cal-row"><span class="cal-day">Tue</span><span class="cal-slot taken">✓ Booked</span></div>
+              <div class="cal-row"><span class="cal-day">Wed</span><span class="cal-slot filling">Booking...</span></div>
+              <div class="cal-row"><span class="cal-day">Thu</span><span class="cal-slot free">Available</span></div>
             </div>
             <h3>An agent that books appointments</h3>
             <p>No more back-and-forth scheduling. An AI agent handles all bookings, reminders, and rescheduling — automatically.</p>
           </div>
           <div class="qs-card">
-            <div class="qs-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <div class="qs-mini-demo web-demo">
+              <div class="web-bar"></div>
+              <div class="web-bar"></div>
+              <div class="web-bar"></div>
+              <div class="web-bar"></div>
+              <div class="web-cta">Book a Call →</div>
             </div>
             <h3>Your website, built fast</h3>
             <p>We design and launch professional websites in days — not months. Fast, mobile-ready, and built to turn visitors into clients.</p>
           </div>
           <div class="qs-card">
-            <div class="qs-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <div class="qs-mini-demo ig-demo">
+              <div class="ig-post live">✓ Auto</div>
+              <div class="ig-post">📷</div>
+              <div class="ig-post">📷</div>
+              <div class="ig-post">📷</div>
+              <div class="ig-post live">✓ Auto</div>
+              <div class="ig-post">📷</div>
             </div>
             <h3>Instagram on autopilot</h3>
             <p>AI writes the captions, picks the hashtags, and publishes for you — every day, on schedule, while you focus on your business.</p>
@@ -386,29 +447,71 @@
         </div>
 
         <div class="value-grid problem-grid">
+
+          <!-- Card 1: Missed messages -->
           <div class="value-card problem-card reveal">
-            <div class="problem-x">✕</div>
-            <h3 data-i18n="val1_h">You miss messages and lose clients</h3>
+            <div class="prob-visual">
+              <div class="pv-bubble pv-in">Hi! I'm interested 👋</div>
+              <div class="pv-time">⏳ 3 hours later…</div>
+              <div class="pv-bubble pv-in pv-faded">Still there? I already found someone else.</div>
+              <div class="pv-lost">💸 Sale lost</div>
+            </div>
+            <h3><span class="problem-x">✕</span><span data-i18n="val1_h">You miss messages and lose clients</span></h3>
             <p data-i18n="val1_p">A potential client sends a message. You're busy. You reply 3 hours later. They already went with your competitor.</p>
           </div>
 
+          <!-- Card 2: Leads go cold -->
           <div class="value-card problem-card reveal">
-            <div class="problem-x">✕</div>
-            <h3 data-i18n="val2_h">Leads go cold because no one follows up</h3>
+            <div class="prob-visual">
+              <div class="pv-pipeline">
+                <div class="pv-stage pv-hot">🔥 New Lead</div>
+                <div class="pv-arrow">→</div>
+                <div class="pv-stage pv-warm">😐 No reply</div>
+                <div class="pv-arrow">→</div>
+                <div class="pv-stage pv-cold">❄️ Cold</div>
+              </div>
+              <div class="pv-note">No follow-up = lost revenue</div>
+            </div>
+            <h3><span class="problem-x">✕</span><span data-i18n="val2_h">Leads go cold because no one follows up</span></h3>
             <p data-i18n="val2_p">Someone showed interest last week. Nobody followed up. That's a sale that walked out the door for free.</p>
           </div>
 
+          <!-- Card 3: Wasted hours -->
           <div class="value-card problem-card reveal">
-            <div class="problem-x">✕</div>
-            <h3 data-i18n="val3_h">You waste hours on tasks that should be automatic</h3>
+            <div class="prob-visual">
+              <div class="pv-tasks">
+                <div class="pv-task">✍️ Copy-paste leads to spreadsheet</div>
+                <div class="pv-task">✍️ Send follow-up emails manually</div>
+                <div class="pv-task">✍️ Schedule appointments by DM</div>
+                <div class="pv-task">✍️ Post on Instagram every day</div>
+              </div>
+              <div class="pv-hours">20+ hrs/week on manual work</div>
+            </div>
+            <h3><span class="problem-x">✕</span><span data-i18n="val3_h">You waste hours on tasks that should be automatic</span></h3>
             <p data-i18n="val3_p">Scheduling, copy-pasting, posting, responding — you do it all by hand. That's 20+ hours a week you could spend growing your business.</p>
           </div>
 
+          <!-- Card 4: Competitor wins -->
           <div class="value-card problem-card reveal">
-            <div class="problem-x">✕</div>
-            <h3 data-i18n="val4_h">Your competitor responds in seconds. You don't.</h3>
+            <div class="prob-visual">
+              <div class="pv-race">
+                <div class="pv-race-row pv-winner">
+                  <span class="pv-label">Competitor</span>
+                  <span class="pv-bar pv-bar-fast"></span>
+                  <span class="pv-time-tag">⚡ 3 sec</span>
+                </div>
+                <div class="pv-race-row pv-loser">
+                  <span class="pv-label">You</span>
+                  <span class="pv-bar pv-bar-slow"></span>
+                  <span class="pv-time-tag">⏰ 3 hrs</span>
+                </div>
+              </div>
+              <div class="pv-note pv-red">Whoever replies first wins the client.</div>
+            </div>
+            <h3><span class="problem-x">✕</span><span data-i18n="val4_h">Your competitor responds in seconds. You don't.</span></h3>
             <p data-i18n="val4_p">Speed wins clients. If your business doesn't reply instantly, someone else does — and they get the sale.</p>
           </div>
+
         </div>
       </div>
     </section>
@@ -1148,7 +1251,7 @@
 
         <div class="berlin-badge reveal">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          <span data-i18n="berlin_badge">Founded March 2026 · Berlin, Germany</span>
+          <span data-i18n="berlin_badge">Berlin, Germany</span>
         </div>
 
         <div class="company-linkedin reveal">
@@ -1413,5 +1516,20 @@
   <script src="lang.js"></script>
   <script src="reviews.js"></script>
   <script src="main.js"></script>
+  <script>
+    // Demo tab switcher
+    document.querySelectorAll('.demo-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var target = this.getAttribute('data-demo');
+        // Update tab active state
+        document.querySelectorAll('.demo-tab').forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        // Show/hide scenarios
+        document.querySelectorAll('.chat-scenario').forEach(function(s) { s.classList.add('hidden'); });
+        var scene = document.getElementById('demo-' + target);
+        if (scene) scene.classList.remove('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
