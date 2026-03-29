@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare Plans — Taskboost.ai</title>
+  <meta name="description" content="See exactly what's included in each Taskboost.ai plan — with real examples for your business." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Page base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    .cp-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .cp-logo { font-size: 1rem; font-weight: 800; color: #fff; }
+    .cp-logo span { color: #a78bfa; }
+    .cp-nav-links { display: flex; gap: 24px; align-items: center; }
+    .cp-nav-links a { font-size: 0.82rem; color: rgba(255,255,255,.6); transition: color 0.2s; }
+    .cp-nav-links a:hover { color: #fff; }
+    .cp-nav-cta {
+      background: #7c3aed;
+      color: #fff !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.78rem !important;
+    }
+
+    /* ── Hero ── */
+    .cp-hero {
+      text-align: center;
+      padding: 72px 24px 48px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cp-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #a78bfa;
+      margin-bottom: 14px;
+    }
+    .cp-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .cp-title span { color: #a78bfa; }
+    .cp-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,.55);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .cp-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #7c3aed;
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cp-hero-cta:hover { background: #6d28d9; transform: translateY(-1px); }
+
+    /* ── Section wrapper ── */
+    .cp-section { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── Plan cards strip ── */
+    .cp-plan-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .cp-plan-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .cp-plan-card:hover { border-color: rgba(255,255,255,.15); }
+    .cp-plan-card.featured {
+      background: rgba(167,139,250,.07);
+      border-color: rgba(167,139,250,.3);
+    }
+    .cp-plan-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #7c3aed;
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .cp-plan-tier {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 6px;
+    }
+    .cp-plan-name { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .cp-plan-price { font-size: 2rem; font-weight: 900; color: #fff; }
+    .cp-plan-price span { font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,.4); margin-left: 4px; }
+    .cp-plan-support { font-size: 0.7rem; color: rgba(255,255,255,.4); margin-top: 4px; }
+    .cp-plan-support em { color: rgba(167,139,250,.8); font-style: normal; }
+    .cp-plan-tagline {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.5);
+      line-height: 1.5;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding-top: 12px;
+    }
+    .cp-plan-btn {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.7);
+      transition: all 0.2s;
+    }
+    .cp-plan-btn:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+    .cp-plan-btn.btn-purple {
+      background: #7c3aed;
+      border-color: #7c3aed;
+      color: #fff;
+    }
+    .cp-plan-btn.btn-purple:hover { background: #6d28d9; }
+
+    /* ── Section heading ── */
+    .cp-section-heading {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .cp-section-heading h2 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .cp-section-heading p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.45);
+    }
+
+    /* ── Plan detail blocks ── */
+    .cp-plans-detail { display: flex; flex-direction: column; gap: 48px; margin-bottom: 72px; }
+
+    .cp-plan-detail-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+    .cp-plan-detail-card.starter { border-color: rgba(16,185,129,.2); }
+    .cp-plan-detail-card.growth  { border-color: rgba(167,139,250,.3); }
+    .cp-plan-detail-card.full    { border-color: rgba(245,158,11,.2); }
+
+    .cp-plan-detail-header {
+      padding: 28px 60px 28px 32px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .starter .cp-plan-detail-header { background: rgba(16,185,129,.06); }
+    .growth  .cp-plan-detail-header { background: rgba(167,139,250,.08); }
+    .full    .cp-plan-detail-header { background: rgba(245,158,11,.06); }
+
+    .cpd-title-block {}
+    .cpd-tier-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .starter .cpd-tier-badge { color: #10b981; }
+    .growth  .cpd-tier-badge { color: #a78bfa; }
+    .full    .cpd-tier-badge { color: #f59e0b; }
+    .cpd-plan-name { font-size: 1.6rem; font-weight: 900; color: #fff; }
+    .cpd-plan-desc { font-size: 0.82rem; color: rgba(255,255,255,.5); margin-top: 4px; max-width: 440px; }
+
+    .cpd-price-block { text-align: right; flex-shrink: 0; }
+    .cpd-price { font-size: 2.2rem; font-weight: 900; color: #fff; }
+    .cpd-price-tag { font-size: 0.72rem; color: rgba(255,255,255,.4); }
+    .cpd-support { font-size: 0.72rem; margin-top: 4px; color: rgba(255,255,255,.35); }
+
+    .cp-plan-detail-body { padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    /* Includes list */
+    .cpd-includes h3 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 14px;
+    }
+    .cpd-includes ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .cpd-includes li { display: flex; gap: 10px; align-items: flex-start; }
+    .cpd-includes li .icon { flex-shrink: 0; margin-top: 2px; }
+    .cpd-includes li .text { font-size: 0.8rem; color: rgba(255,255,255,.75); }
+    .cpd-includes li .text strong { color: #fff; display: block; margin-bottom: 1px; }
+
+    /* Examples */
+    .cpd-examples h3 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 14px;
+    }
+    .example-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .example-card:last-child { margin-bottom: 0; }
+    .example-industry {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+    .starter .example-industry { color: #10b981; }
+    .growth  .example-industry { color: #a78bfa; }
+    .full    .example-industry { color: #f59e0b; }
+    .example-scenario {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.7);
+      line-height: 1.5;
+    }
+    .example-scenario strong { color: #fff; }
+    .example-flow {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+    }
+    .flow-step {
+      font-size: 0.63rem;
+      background: rgba(255,255,255,.06);
+      border-radius: 6px;
+      padding: 3px 8px;
+      color: rgba(255,255,255,.5);
+      white-space: nowrap;
+    }
+    .flow-arrow { font-size: 0.6rem; color: rgba(255,255,255,.2); }
+
+    /* ── Full comparison table ── */
+    .cp-full-table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      margin-bottom: 72px;
+    }
+    .cp-full-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .cp-full-table thead tr {
+      background: rgba(255,255,255,.04);
+    }
+    .cp-full-table th {
+      padding: 20px 18px;
+      text-align: center;
+      font-weight: 800;
+      color: rgba(255,255,255,.8);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .cft-feature-col {
+      text-align: left !important;
+      min-width: 220px;
+      padding-left: 24px !important;
+    }
+    .cft-th-growth {
+      background: rgba(167,139,250,.1);
+      color: #a78bfa !important;
+      border-left: 1px solid rgba(167,139,250,.2);
+      border-right: 1px solid rgba(167,139,250,.2);
+    }
+    .cft-cat-row td {
+      padding: 14px 24px 6px !important;
+      background: transparent !important;
+    }
+    .cft-cat-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,.3);
+      border-top: 1px solid rgba(255,255,255,.06) !important;
+    }
+    .cp-full-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      transition: background 0.15s;
+    }
+    .cp-full-table tbody tr:hover { background: rgba(255,255,255,.02); }
+    .cp-full-table td {
+      padding: 13px 18px;
+      text-align: center;
+      color: rgba(255,255,255,.65);
+      vertical-align: top;
+    }
+    .cft-td-growth {
+      background: rgba(167,139,250,.05);
+      border-left: 1px solid rgba(167,139,250,.12);
+      border-right: 1px solid rgba(167,139,250,.12);
+    }
+    .cft-feature-name { display: block; font-weight: 600; color: rgba(255,255,255,.85); font-size: 0.78rem; }
+    .cft-feature-desc { display: block; font-size: 0.65rem; color: rgba(255,255,255,.35); margin-top: 2px; }
+
+    /* badges */
+    .badge-yes  { display:inline-block; background:rgba(16,185,129,.12); color:#10b981; border:1px solid rgba(16,185,129,.25); font-size:0.65rem; font-weight:700; padding:3px 10px; border-radius:50px; }
+    .badge-no   { color: rgba(255,255,255,.2); font-size: 0.9rem; }
+    .badge-gold { display:inline-block; background:rgba(245,158,11,.1); color:#f59e0b; border:1px solid rgba(245,158,11,.2); font-size:0.63rem; font-weight:700; padding:3px 10px; border-radius:50px; white-space:nowrap; }
+    .badge-val  { font-size:0.78rem; font-weight:600; color:rgba(255,255,255,.7); }
+    .badge-val small { display:block; font-size:0.62rem; font-weight:400; color:rgba(255,255,255,.3); margin-top:1px; }
+    .badge-val-purple { color: #a78bfa !important; }
+    .cft-cta td { padding: 20px !important; border-top: 1px solid rgba(255,255,255,.08) !important; }
+
+    /* ── FAQ ── */
+    .cp-faq { margin-bottom: 72px; }
+    .cp-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .faq-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      padding: 20px 22px;
+    }
+    .faq-q { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .faq-a { font-size: 0.78rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+    .faq-a a { color: #a78bfa; text-decoration: underline; }
+
+    /* ── Footer CTA ── */
+    .cp-footer-cta {
+      text-align: center;
+      background: rgba(167,139,250,.07);
+      border: 1px solid rgba(167,139,250,.2);
+      border-radius: 20px;
+      padding: 48px 24px;
+      margin-bottom: 48px;
+    }
+    .cp-footer-cta h2 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+    .cp-footer-cta p { font-size: 0.88rem; color: rgba(255,255,255,.5); margin-bottom: 28px; }
+    .cp-footer-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-primary { background: #7c3aed; color: #fff; padding: 14px 32px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
+    .btn-cta-primary:hover { background: #6d28d9; }
+    .btn-cta-ghost { border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.7); padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-cta-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .cp-plan-strip { grid-template-columns: 1fr; }
+      .cp-plan-detail-body { grid-template-columns: 1fr; }
+      .cp-faq-grid { grid-template-columns: 1fr; }
+      .cp-nav { padding: 16px 20px; }
+      .cp-nav-links { display: none; }
+      .cpd-price-block { text-align: left; }
+      .cp-plan-detail-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="cp-nav">
+    <a href="index.html" class="cp-logo">taskboost<span>.ai</span></a>
+    <div class="cp-nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#contact" class="cp-nav-cta">Book Free Audit →</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="cp-hero">
+    <p class="cp-label">Compare Plans</p>
+    <h1 class="cp-title">See exactly what you get<br /><span>with each plan.</span></h1>
+    <p class="cp-subtitle">We don't sell "workflows" — we automate the jobs you hate doing. Pick the plan that fits, or book a free audit and we'll tell you exactly what to build.</p>
+    <a href="index.html#contact" class="cp-hero-cta">Book a Free Audit →</a>
+  </div>
+
+  <div class="cp-section">
+
+    <!-- Plan cards strip -->
+    <div class="cp-plan-strip">
+      <div class="cp-plan-card">
+        <div class="cp-plan-tier">🟢 Simple</div>
+        <div class="cp-plan-name">Starter</div>
+        <div class="cp-plan-price">$1,000 <span>one-time</span></div>
+        <div class="cp-plan-support">+ <em>$199/mo</em> optional support</div>
+        <p class="cp-plan-tagline">We automate the one job costing you the most time. Done in ~1 week. Replaces ~$800/mo in manual work.</p>
+        <a href="index.html#contact" class="cp-plan-btn">Get Started →</a>
+      </div>
+      <div class="cp-plan-card featured">
+        <div class="cp-plan-tier">🟣 Medium</div>
+        <div class="cp-plan-name">Growth</div>
+        <div class="cp-plan-price">$2,000 <span>one-time</span></div>
+        <div class="cp-plan-support">+ <em>$299/mo</em> optional support</div>
+        <p class="cp-plan-tagline">3 jobs that used to eat your day — automated and connected. Replaces ~$2,000/mo in staff time.</p>
+        <a href="index.html#contact" class="cp-plan-btn btn-purple">Get Started →</a>
+      </div>
+      <div class="cp-plan-card">
+        <div class="cp-plan-tier">🟡 Advanced</div>
+        <div class="cp-plan-name">Full System</div>
+        <div class="cp-plan-price">$4,500+ <span>one-time</span></div>
+        <div class="cp-plan-support">+ <em>$499/mo</em> optional support</div>
+        <p class="cp-plan-tagline">Your whole operation runs itself. Every platform connected. AI that decides, not just replies. Replaces a part-time hire.</p>
+        <a href="index.html#contact" class="cp-plan-btn">Let's Talk →</a>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────
+         FULL COMPARISON TABLE
+    ──────────────────────────────── -->
+    <div class="cp-section-heading" id="compare">
+      <h2>What's the difference?</h2>
+      <p>Every feature side by side — scroll down for real examples per industry</p>
+    </div>
+
+    <div class="cp-full-table-wrap">
+      <table class="cp-full-table">
+        <thead>
+          <tr>
+            <th class="cft-feature-col"></th>
+            <th>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+                <span style="font-size:0.9rem;">Starter</span>
+                <span style="font-size:1.1rem;font-weight:900;">$1,000</span>
+                <span style="font-size:0.6rem;color:rgba(255,255,255,.35);font-weight:500;">one-time</span>
+              </div>
+            </th>
+            <th class="cft-th-growth">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+                <span style="font-size:0.6rem;background:#7c3aed;color:#fff;padding:2px 10px;border-radius:50px;font-weight:700;">Most Popular</span>
+                <span style="font-size:0.9rem;">Growth</span>
+                <span style="font-size:1.1rem;font-weight:900;">$2,000</span>
+                <span style="font-size:0.6rem;color:rgba(167,139,250,.5);font-weight:500;">one-time</span>
+              </div>
+            </th>
+            <th>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+                <span style="font-size:0.9rem;">Full System</span>
+                <span style="font-size:1.1rem;font-weight:900;">$4,500+</span>
+                <span style="font-size:0.6rem;color:rgba(255,255,255,.35);font-weight:500;">one-time</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Automations -->
+          <tr class="cft-cat-row"><td colspan="4" class="cft-cat-label">⚡ Automations</td></tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Jobs automated</span><span class="cft-feature-desc">Each job = one task you never do manually again (answering, booking, following up…)</span></td>
+            <td><span class="badge-val">1 job</span></td>
+            <td class="cft-td-growth"><span class="badge-val badge-val-purple">3 jobs</span></td>
+            <td><span class="badge-val">5+ jobs</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">WhatsApp AI bot</span><span class="cft-feature-desc">Replies in seconds, 24/7 — even at 2am</span></td>
+            <td><span class="badge-yes">Included</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Website chatbot</span><span class="cft-feature-desc">Captures leads from your site while you sleep</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Appointment booking</span><span class="cft-feature-desc">AI books, confirms, sends reminders — no calendar app needed</span></td>
+            <td><span class="badge-yes">Included</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Lead follow-up sequence</span><span class="cft-feature-desc">Auto-message if a lead goes silent — never lose a sale to silence again</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Instagram DM automation</span><span class="cft-feature-desc">AI replies to DMs on Instagram automatically</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Add-on available</span></td>
+          </tr>
+
+          <!-- AI & Intelligence -->
+          <tr class="cft-cat-row"><td colspan="4" class="cft-cat-label">🧠 AI & Intelligence</td></tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">AI model</span><span class="cft-feature-desc">The engine behind your bot — smarter model = better, more natural replies</span></td>
+            <td><span class="badge-val">GPT-4o mini<small>fast & cost-efficient</small></span></td>
+            <td class="cft-td-growth"><span class="badge-val badge-val-purple">GPT-4o mini<small>fast & cost-efficient</small></span></td>
+            <td><span class="badge-val">GPT-4o / Claude Sonnet<small>most capable</small></span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Lead qualification AI</span><span class="cft-feature-desc">AI asks qualifying questions — filters serious buyers from time-wasters</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">AI Agents</span><span class="cft-feature-desc">AI that takes decisions and actions autonomously — routes, escalates, triggers next steps</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Full System only</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Document & PDF processing</span><span class="cft-feature-desc">AI reads contracts, invoices, intake forms — extracts data and acts on it</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Full System only</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Custom business logic</span><span class="cft-feature-desc">Complex branching, conditions, code nodes — built exactly to your process</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Full System only</span></td>
+          </tr>
+
+          <!-- Integrations -->
+          <tr class="cft-cat-row"><td colspan="4" class="cft-cat-label">🔗 Integrations</td></tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Number of integrations</span><span class="cft-feature-desc">Tools we connect your system to (WhatsApp, Calendar, CRM, email…)</span></td>
+            <td><span class="badge-val">Up to 3</span></td>
+            <td class="cft-td-growth"><span class="badge-val badge-val-purple">Up to 6</span></td>
+            <td><span class="badge-val">Unlimited</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">CRM integration</span><span class="cft-feature-desc">HubSpot, Notion, Airtable, Pipedrive — leads saved automatically</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Google Calendar</span><span class="cft-feature-desc">Real-time availability checks and automatic booking</span></td>
+            <td><span class="badge-yes">Included</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">All platforms share data</span><span class="cft-feature-desc">WhatsApp, web, Instagram & CRM know about each other — one brain</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Full System only</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Dedicated infrastructure</span><span class="cft-feature-desc">Your own private n8n instance — not shared, more capacity, more security</span></td>
+            <td><span class="badge-no">—</span></td>
+            <td class="cft-td-growth"><span class="badge-no">—</span></td>
+            <td><span class="badge-gold">Full System only</span></td>
+          </tr>
+
+          <!-- Support & Delivery -->
+          <tr class="cft-cat-row"><td colspan="4" class="cft-cat-label">🛠️ Build & Support</td></tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Delivery time</span><span class="cft-feature-desc">From kickoff call to your system going live</span></td>
+            <td><span class="badge-val">~1 week</span></td>
+            <td class="cft-td-growth"><span class="badge-val badge-val-purple">~2 weeks</span></td>
+            <td><span class="badge-val">~4 weeks</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">Training session</span><span class="cft-feature-desc">We walk you through everything before go-live — you'll know how to use it</span></td>
+            <td><span class="badge-yes">Included</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">14-day post-launch support</span><span class="cft-feature-desc">We stay on call to fix anything for 2 weeks after go-live — free</span></td>
+            <td><span class="badge-yes">Included</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Included</span></td>
+            <td><span class="badge-yes">Included</span></td>
+          </tr>
+          <tr>
+            <td class="cft-feature-col"><span class="cft-feature-name">You own it forever</span><span class="cft-feature-desc">No monthly software fee. The system is yours — even if you don't take support</span></td>
+            <td><span class="badge-yes">Yes</span></td>
+            <td class="cft-td-growth"><span class="badge-yes">Yes</span></td>
+            <td><span class="badge-yes">Yes</span></td>
+          </tr>
+
+          <!-- CTA row -->
+          <tr class="cft-cta">
+            <td class="cft-feature-col"></td>
+            <td><a href="index.html#contact" class="cp-plan-btn" style="display:inline-block;padding:10px 24px;border-radius:8px;font-size:0.78rem;font-weight:700;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s;">Get Started</a></td>
+            <td class="cft-td-growth"><a href="index.html#contact" class="cp-plan-btn btn-purple" style="display:inline-block;padding:10px 24px;border-radius:8px;font-size:0.78rem;font-weight:700;background:#7c3aed;border:1px solid #7c3aed;color:#fff;transition:all .2s;">Get Started</a></td>
+            <td><a href="index.html#contact" class="cp-plan-btn" style="display:inline-block;padding:10px 24px;border-radius:8px;font-size:0.78rem;font-weight:700;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s;">Let's Talk</a></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ────────────────────────────────
+         MONTHLY COST COMPARISON
+    ──────────────────────────────── -->
+    <div class="cp-section-heading">
+      <h2>What does it cost per month?</h2>
+      <p>Support is optional. Pick how you want to handle API costs.</p>
+    </div>
+
+    <div class="monthly-cost-wrap">
+
+      <!-- OPTION A -->
+      <div class="mc-option mc-option-a">
+        <div class="mc-option-header">
+          <div class="mc-badge mc-badge-green">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Most popular · Best value
+          </div>
+          <h3 class="mc-title">Option A — You manage your own API keys</h3>
+          <p class="mc-desc">You open free accounts with Meta &amp; OpenAI. We connect everything. You pay providers directly — at their cost price, with no markup.</p>
+        </div>
+        <div class="mc-plans">
+          <div class="mc-plan">
+            <div class="mc-plan-name">Starter</div>
+            <div class="mc-row"><span>Taskboost support</span><span>$199/mo</span></div>
+            <div class="mc-row mc-dim"><span>WhatsApp API</span><span>~$4–8/mo</span></div>
+            <div class="mc-row mc-dim"><span>AI API (GPT-4o mini)</span><span>~$1–10/mo</span></div>
+            <div class="mc-total"><span>Total / month</span><span class="mc-total-num">~$210/mo</span></div>
+          </div>
+          <div class="mc-plan mc-plan-featured">
+            <div class="mc-plan-name mc-plan-name-purple">Growth</div>
+            <div class="mc-row"><span>Taskboost support</span><span class="mc-purple">$299/mo</span></div>
+            <div class="mc-row mc-dim"><span>WhatsApp API</span><span>~$4–8/mo</span></div>
+            <div class="mc-row mc-dim"><span>AI API (GPT-4o mini)</span><span>~$1–10/mo</span></div>
+            <div class="mc-total mc-total-purple"><span>Total / month</span><span class="mc-total-num">~$310/mo</span></div>
+          </div>
+          <div class="mc-plan">
+            <div class="mc-plan-name">Full System</div>
+            <div class="mc-row"><span>Taskboost support</span><span>$499/mo</span></div>
+            <div class="mc-row mc-dim"><span>WhatsApp API</span><span>~$8–20/mo</span></div>
+            <div class="mc-row mc-dim"><span>AI API (GPT-4o / Sonnet)</span><span>~$10–60/mo</span></div>
+            <div class="mc-total"><span>Total / month</span><span class="mc-total-num">~$549/mo</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION B -->
+      <div class="mc-option mc-option-b">
+        <div class="mc-option-header">
+          <div class="mc-badge mc-badge-grey">Zero admin option</div>
+          <h3 class="mc-title mc-title-dim">Option B — We manage everything</h3>
+          <p class="mc-desc">No accounts to create. We cover WhatsApp API + AI API costs within limits. One invoice, everything included.</p>
+        </div>
+        <div class="mc-plans mc-plans-b">
+          <div class="mc-plan-b">
+            <div class="mc-plan-name">Starter</div>
+            <div class="mc-plan-b-price">$349<span>/mo</span></div>
+            <div class="mc-plan-b-limits">500 convos · 300 tokens/msg</div>
+            <div class="mc-plan-b-tag">All-in · no extra bills</div>
+          </div>
+          <div class="mc-plan-b mc-plan-b-featured">
+            <div class="mc-plan-name mc-plan-name-purple">Growth</div>
+            <div class="mc-plan-b-price mc-purple">$599<span>/mo</span></div>
+            <div class="mc-plan-b-limits">2,000 convos · 500 tokens/msg</div>
+            <div class="mc-plan-b-tag">All-in · no extra bills</div>
+          </div>
+          <div class="mc-plan-b">
+            <div class="mc-plan-name">Full System</div>
+            <div class="mc-plan-b-price">$999<span>/mo</span></div>
+            <div class="mc-plan-b-limits">5,000 convos · 800 tokens/msg</div>
+            <div class="mc-plan-b-tag">All-in · no extra bills</div>
+          </div>
+        </div>
+        <p class="mc-option-b-note">Good for busy operators who want one invoice and zero admin — but costs more than Option A.</p>
+      </div>
+
+    </div>
+
+    <!-- ────────────────────────────────
+         PLAN DETAIL BLOCKS
+    ──────────────────────────────── -->
+    <div class="cp-section-heading">
+      <h2>What's inside each plan</h2>
+      <p>Real deliverables and real-world examples for your industry</p>
+    </div>
+
+    <div class="cp-plans-detail">
+
+      <!-- ── STARTER ── -->
+      <div class="cp-plan-detail-card starter">
+        <div class="cp-plan-detail-header cpd-toggle" onclick="togglePlan(this)">
+          <div class="cpd-title-block">
+            <div class="cpd-tier-badge">🟢 Starter Plan</div>
+            <div class="cpd-plan-name">Starter</div>
+            <p class="cpd-plan-desc">We pick the one job costing you the most time — answering messages, booking appointments, or qualifying leads — and it never lands on your plate again.</p>
+          </div>
+          <div class="cpd-price-block">
+            <div class="cpd-price">$1,000</div>
+            <div class="cpd-price-tag">one-time setup</div>
+            <div class="cpd-support">+ $199/mo optional support</div>
+          </div>
+          <div class="cpd-chevron"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="cp-plan-detail-body cpd-body">
+          <div class="cpd-includes">
+            <h3>What's included</h3>
+            <ul>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>1 job automated</strong>Your choice: WhatsApp bot OR website chatbot — built around your most urgent need</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>AI-powered responses (GPT-4o mini)</strong>Answers customer questions instantly, 24/7 — even when you're sleeping or with another client</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Appointment booking via Google Calendar</strong>AI books the slot, sends confirmation, adds a reminder — zero manual work</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Up to 3 integrations</strong>We connect your bot to existing tools: WhatsApp Business, Google Calendar, email notifications</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Training session + 14-day support</strong>We walk you through the system and stay on call for 2 weeks after go-live</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#10b981"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Delivered in ~1 week</strong>From kickoff call to live system — fast results</span>
+              </li>
+            </ul>
+          </div>
+          <div class="cpd-examples">
+            <h3>Real examples</h3>
+            <div class="example-card">
+              <div class="example-industry">🏥 Clinic / Doctor's Office</div>
+              <p class="example-scenario"><strong>Problem:</strong> Receptionist spends 2 hours/day answering "Do you have availability on Thursday?" via WhatsApp.</p>
+              <p class="example-scenario" style="margin-top:6px;"><strong>What we build:</strong> A WhatsApp bot that checks your Google Calendar, answers availability questions, and books confirmed appointments automatically.</p>
+              <div class="example-flow">
+                <span class="flow-step">Patient sends WhatsApp</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI reads message</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Checks calendar</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Books slot</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Sends confirmation</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">🍽️ Restaurant</div>
+              <p class="example-scenario"><strong>Problem:</strong> Table reservation requests flood in via Instagram, WhatsApp, and email — all handled manually.</p>
+              <p class="example-scenario" style="margin-top:6px;"><strong>What we build:</strong> Website chatbot that handles reservation requests, confirms time slots, and sends a reminder 2 hours before.</p>
+              <div class="example-flow">
+                <span class="flow-step">Customer fills chat form</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI checks availability</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Confirms via WhatsApp</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Reminder sent</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">💅 Beauty Salon / Barbershop</div>
+              <p class="example-scenario"><strong>What we build:</strong> WhatsApp booking bot. Client sends "I want a haircut Saturday at 3pm" — bot checks availability, books it, and sends a Google Calendar invite to both parties.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GROWTH ── -->
+      <div class="cp-plan-detail-card growth">
+        <div class="cp-plan-detail-header cpd-toggle" onclick="togglePlan(this)">
+          <div class="cpd-title-block">
+            <div class="cpd-tier-badge">🟣 Growth Plan</div>
+            <div class="cpd-plan-name">Growth</div>
+            <p class="cpd-plan-desc">Three jobs that used to eat your day — capturing leads, following up automatically, and keeping your CRM clean — all running without you.</p>
+          </div>
+          <div class="cpd-price-block">
+            <div class="cpd-price">$2,000</div>
+            <div class="cpd-price-tag">one-time setup</div>
+            <div class="cpd-support">+ $299/mo optional support</div>
+          </div>
+          <div class="cpd-chevron"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="cp-plan-detail-body cpd-body">
+          <div class="cpd-includes">
+            <h3>What's included</h3>
+            <ul>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>3 jobs automated</strong>WhatsApp bot + website chatbot + lead follow-up — working together as one system</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>WhatsApp bot + website chatbot</strong>Capture leads from both channels — every inquiry gets an instant reply</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>CRM integration</strong>Every new lead auto-saved to HubSpot, Notion, Airtable, or Pipedrive — no manual data entry</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Lead qualification</strong>AI asks the right questions to filter serious buyers from time-wasters before they reach you</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Automated follow-up sequence</strong>If a lead goes quiet for 24–48h, AI sends a follow-up automatically — no leads fall through</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Google Calendar booking + reminders</strong>AI books, confirms, and sends reminders — zero manual work on scheduling</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#a78bfa"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Training + 14-day post-launch support</strong>Full handoff. We fix anything that comes up in the first 2 weeks.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="cpd-examples">
+            <h3>Real examples</h3>
+            <div class="example-card">
+              <div class="example-industry">🏠 Real Estate Agency</div>
+              <p class="example-scenario"><strong>Problem:</strong> Agents spend hours replying to property inquiries, manually entering leads into spreadsheets, and forgetting to follow up.</p>
+              <p class="example-scenario" style="margin-top:6px;"><strong>What we build:</strong> WhatsApp bot qualifies buyers ("budget? area? 2 or 3 bedrooms?"), saves the lead to HubSpot, books a viewing, and if the buyer goes silent for 2 days — sends a follow-up automatically.</p>
+              <div class="example-flow">
+                <span class="flow-step">Lead contacts on WhatsApp</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI qualifies</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Saved to CRM</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Viewing booked</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Auto follow-up if silent</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">🛍️ E-Commerce Store</div>
+              <p class="example-scenario"><strong>What we build:</strong> Website chatbot answers product questions and captures leads. WhatsApp bot handles order inquiries and sends shipping updates. Abandoned cart follow-up message sent 2 hours after inactivity.</p>
+              <div class="example-flow">
+                <span class="flow-step">Visitor asks about product</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI answers + captures email</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Lead saved to CRM</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Follow-up sent if no purchase</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">🏋️ Gym / Fitness Studio</div>
+              <p class="example-scenario"><strong>What we build:</strong> WhatsApp bot answers membership questions and books free trial sessions. CRM captures every lead. If trial no-show → automatic "We missed you" message with a reschedule link.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FULL SYSTEM ── -->
+      <div class="cp-plan-detail-card full">
+        <div class="cp-plan-detail-header cpd-toggle" onclick="togglePlan(this)">
+          <div class="cpd-title-block">
+            <div class="cpd-tier-badge">🟡 Full System Plan</div>
+            <div class="cpd-plan-name">Full System</div>
+            <p class="cpd-plan-desc">Your whole operation runs itself. Every message, every platform, every document — handled. You show up to close deals, not manage tools.</p>
+          </div>
+          <div class="cpd-price-block">
+            <div class="cpd-price">$4,500+</div>
+            <div class="cpd-price-tag">one-time setup</div>
+            <div class="cpd-support">+ $499/mo optional support</div>
+          </div>
+          <div class="cpd-chevron"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="cp-plan-detail-body cpd-body">
+          <div class="cpd-includes">
+            <h3>What's included</h3>
+            <ul>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>5+ jobs automated</strong>Everything in Growth — plus AI that makes decisions, reads documents, and connects all your platforms</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>AI Agents — decisions, not just replies</strong>The AI takes action autonomously: route inquiries, escalate issues, trigger next steps based on context</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Smarter AI: Claude Sonnet / GPT-4o</strong>Not mini — the full model. Better reasoning, more context, handles complex conversations</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Document & PDF processing</strong>AI reads contracts, applications, invoices — extracts data and triggers workflows automatically</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>All platforms connected</strong>WhatsApp, website, Instagram, CRM, email — one shared brain. A customer on WhatsApp is recognized when they write on Instagram.</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Custom business logic</strong>Branching conditions, code nodes, multi-step decision trees — built exactly for your process</span>
+              </li>
+              <li>
+                <span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+                <span class="text"><strong>Dedicated infrastructure</strong>Your own isolated n8n instance — not shared with other clients. More capacity, more security.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="cpd-examples">
+            <h3>Real examples</h3>
+            <div class="example-card">
+              <div class="example-industry">🏢 Property Management Company</div>
+              <p class="example-scenario"><strong>Problem:</strong> Dozens of tenants, maintenance requests, lease renewals, and payment issues — all managed manually.</p>
+              <p class="example-scenario" style="margin-top:6px;"><strong>What we build:</strong> AI reads incoming maintenance requests (WhatsApp/email), categorizes them (urgent/routine), routes to the right contractor, schedules the repair, notifies the tenant, and logs everything in the CRM. Lease PDF uploaded → AI extracts key dates and sets automatic renewal reminders.</p>
+              <div class="example-flow">
+                <span class="flow-step">Tenant sends maintenance request</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI categorizes urgency</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Routes to contractor</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Books repair slot</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Tenant notified</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Logged in CRM</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">⚖️ Law Firm / Consultancy</div>
+              <p class="example-scenario"><strong>What we build:</strong> Intake form on website → AI reads submitted documents (ID, case summary) → classifies case type → books consultation with the right lawyer → sends intake checklist → reminds client 24h before. All data logged in the firm's CRM.</p>
+              <div class="example-flow">
+                <span class="flow-step">Client submits intake form + docs</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI reads & classifies case</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Assigns lawyer</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Books consultation</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Sends checklist</span>
+              </div>
+            </div>
+            <div class="example-card">
+              <div class="example-industry">🛒 High-Volume E-Commerce</div>
+              <p class="example-scenario"><strong>What we build:</strong> Customer service bot across WhatsApp + website. Order tracking, return requests, review collection, VIP customer detection. Instagram DMs answered by AI. All data flows into one dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cp-plans-detail -->
+
+    <!-- ────────────────────────────────
+         FAQ
+    ──────────────────────────────── -->
+    <div class="cp-section-heading">
+      <h2>Frequently asked questions</h2>
+      <p>The questions every client asks before signing</p>
+    </div>
+
+    <div class="cp-faq">
+      <div class="cp-faq-grid">
+        <div class="faq-item">
+          <p class="faq-q">Do I need to pay monthly?</p>
+          <p class="faq-a">No. You pay once for the build and own the system forever. Monthly support is optional — add it if you want us to monitor, update, and optimize your system. Cancel anytime.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">What do I pay directly to third parties?</p>
+          <p class="faq-a">WhatsApp API usage (~$0.04–0.08 per conversation, charged by Meta), AI API calls (~$1–20/mo for most businesses), and any tools you already use (CRM, Google Workspace). Most small businesses pay $5–30/mo in API costs.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">Can I upgrade from Starter to Growth later?</p>
+          <p class="faq-a">Yes. We build everything to be expandable. You pay the difference — we add the new jobs on top of what's already running. Nothing gets rebuilt from scratch.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">What if something breaks after the 14-day support?</p>
+          <p class="faq-a">If you're on a support plan, we fix it at no extra cost. If you're not, we offer one-time fix packages — or you can add the monthly plan at any time.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">I'm not technical. Will I understand how to use it?</p>
+          <p class="faq-a">Yes. We build the system and train you. You don't need to touch any code. Most clients are fully confident within one training session.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">How do I know which plan is right for me?</p>
+          <p class="faq-a">Book a <a href="index.html#contact">free 30-min audit</a>. We'll ask about your business, find the most painful daily task, and tell you exactly what we'd automate first — no pressure, no commitment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────────────────────────────
+         FOOTER CTA
+    ──────────────────────────────── -->
+    <div class="cp-footer-cta">
+      <h2>Not sure which plan fits?</h2>
+      <p>Book a free 30-minute AI audit. We'll identify your biggest bottleneck and tell you exactly what to build first — no pressure, no commitment.</p>
+      <div class="cp-footer-cta-btns">
+        <a href="index.html#contact" class="btn-cta-primary">Book Free Audit →</a>
+        <a href="index.html" class="btn-cta-ghost">Back to homepage</a>
+      </div>
+    </div>
+
+  </div><!-- /cp-section -->
+
+</body>
+</html>
+<style>
+/* ── API Options Section ── */
+.api-options-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 72px;
+}
+.api-option {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.api-option-self  { border-color: rgba(16,185,129,.25); }
+.api-option-managed { border-color: rgba(167,139,250,.25); }
+
+.api-option-header {
+  padding: 24px 24px 20px;
+}
+.api-option-self .api-option-header    { background: rgba(16,185,129,.07); }
+.api-option-managed .api-option-header { background: rgba(167,139,250,.07); }
+
+.api-option-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.api-badge-green  { background: rgba(16,185,129,.15); color: #10b981; border: 1px solid rgba(16,185,129,.3); }
+.api-badge-purple { background: rgba(167,139,250,.15); color: #a78bfa; border: 1px solid rgba(167,139,250,.3); }
+
+.api-option-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.api-option-subtitle {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.api-option-price {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,.7);
+}
+.api-option-price strong { color: #fff; font-size: 1rem; }
+.api-price-note { font-size: 0.68rem; color: rgba(255,255,255,.4); display: block; margin-top: 2px; }
+
+.api-option-body { padding: 20px 24px 24px; }
+
+/* Self-managed costs */
+.api-cost-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+.api-cost-item {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.api-cost-name  { font-size: 0.78rem; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.api-cost-who   { font-size: 0.65rem; color: rgba(255,255,255,.35); margin-bottom: 6px; }
+.api-cost-amount { font-size: 0.85rem; font-weight: 800; color: #10b981; }
+.api-cost-amount span { font-size: 0.65rem; font-weight: 400; color: rgba(255,255,255,.4); margin-left: 4px; }
+.api-cost-example { font-size: 0.65rem; color: rgba(255,255,255,.35); margin-top: 3px; }
+
+.api-total-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(16,185,129,.08);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.api-total-label { font-size: 0.72rem; color: rgba(255,255,255,.6); }
+.api-total-amount { font-size: 1rem; font-weight: 900; color: #10b981; white-space: nowrap; }
+
+/* Managed includes */
+.api-managed-includes { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.ami-row { display: flex; gap: 8px; align-items: flex-start; font-size: 0.76rem; color: rgba(255,255,255,.65); line-height: 1.4; }
+.ami-row svg { flex-shrink: 0; margin-top: 2px; }
+.ami-row strong { color: #fff; }
+
+.api-managed-table { border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); margin-bottom: 12px; }
+.amt-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr 0.8fr;
+  gap: 8px;
+  padding: 9px 14px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,.6);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.amt-row:last-child { border-bottom: none; }
+.amt-header { background: rgba(255,255,255,.04); font-weight: 700; color: rgba(255,255,255,.4); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.amt-featured { background: rgba(167,139,250,.07); color: rgba(255,255,255,.8); }
+
+.api-option-why {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,.5);
+  line-height: 1.4;
+}
+.api-option-why-warn { color: rgba(245,158,11,.7); }
+
+@media (max-width: 768px) {
+  .api-options-wrap { grid-template-columns: 1fr; }
+  .amt-row { grid-template-columns: 1fr 1fr; }
+  .amt-header span:nth-child(3),
+  .amt-row span:nth-child(3) { display: none; }
+}
+</style>
+<style>
+.cft-api-note {
+  display: block;
+  font-size: 0.62rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 3px;
+}
+.cft-api-limits {
+  color: rgba(167,139,250,.5);
+}
+.cft-managed-price {
+  font-size: 0.95rem !important;
+}
+.cft-highlight-row td {
+  background: rgba(255,255,255,.015);
+}
+.cft-highlight-row .cft-td-growth {
+  background: rgba(167,139,250,.07) !important;
+}
+</style>
+<style>
+/* ── Recommended row ── */
+.cft-best-row td {
+  background: rgba(16,185,129,.06) !important;
+  border-top: 2px solid rgba(16,185,129,.25) !important;
+  border-bottom: 2px solid rgba(16,185,129,.25) !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+.cft-best-row .cft-td-growth {
+  background: rgba(16,185,129,.09) !important;
+}
+.cft-best-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16,185,129,.12);
+  border: 1px solid rgba(16,185,129,.25);
+  border-radius: 50px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.cft-best-name {
+  color: #fff !important;
+  font-size: 0.85rem !important;
+}
+.cft-best-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.cft-perk {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #10b981;
+  background: rgba(16,185,129,.1);
+  border-radius: 50px;
+  padding: 2px 8px;
+}
+.cft-best-cell {
+  vertical-align: middle !important;
+  text-align: center;
+}
+.cft-best-price {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #10b981;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.cft-best-price span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.4);
+}
+.cft-best-price-purple { color: #a78bfa !important; }
+.cft-api-saving {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 3px;
+}
+.cft-api-total-hint {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(16,185,129,.7);
+}
+</style>
+<style>
+/* ── Option A: price breakdown ── */
+.cft-cost-breakdown {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 10px;
+}
+.cft-cost-breakdown-b { border-color: rgba(255,255,255,.05); }
+.cft-cost-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,.4);
+}
+.cft-cost-line-val { color: rgba(255,255,255,.6); font-weight: 600; }
+.cft-green { color: #10b981 !important; }
+
+.cft-price-block-a {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 4px;
+}
+.cft-price-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.66rem;
+  gap: 6px;
+}
+.cft-price-label { color: rgba(255,255,255,.4); }
+.cft-price-num { font-weight: 700; color: #10b981; white-space: nowrap; }
+.cft-dim { color: rgba(255,255,255,.35) !important; font-weight: 500 !important; }
+.cft-purple { color: #a78bfa !important; }
+
+.cft-price-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(16,185,129,.2);
+  font-size: 0.7rem;
+  color: rgba(255,255,255,.5);
+}
+.cft-total-num {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #10b981;
+}
+
+/* ── Option B: managed row ── */
+.cft-managed-row td {
+  background: rgba(255,255,255,.02) !important;
+  border-bottom: 1px solid rgba(255,255,255,.05) !important;
+}
+.cft-managed-row .cft-td-growth {
+  background: rgba(167,139,250,.04) !important;
+}
+.cft-option-b-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 6px;
+}
+.cft-managed-cell { vertical-align: middle !important; text-align: center; }
+.cft-price-block-b {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+}
+.cft-price-b-num {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: rgba(255,255,255,.55);
+}
+.cft-price-b-num span { font-size: 0.68rem; font-weight: 400; color: rgba(255,255,255,.3); }
+.cft-price-b-limits {
+  font-size: 0.62rem;
+  color: rgba(255,255,255,.3);
+  line-height: 1.5;
+  text-align: center;
+}
+.cft-price-b-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: rgba(167,139,250,.6);
+  background: rgba(167,139,250,.08);
+  border: 1px solid rgba(167,139,250,.15);
+  border-radius: 50px;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+</style>
+<style>
+/* ── Monthly Cost Section ── */
+.monthly-cost-wrap { display: flex; flex-direction: column; gap: 16px; margin-bottom: 72px; }
+
+/* Option A */
+.mc-option { border-radius: 18px; overflow: hidden; }
+.mc-option-a { border: 2px solid rgba(16,185,129,.35); cursor: pointer; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.mc-option-a:hover { border-color: rgba(16,185,129,.7); box-shadow: 0 0 0 4px rgba(16,185,129,.08), 0 8px 32px rgba(16,185,129,.12); }
+.mc-option-b { border: 1px solid rgba(255,255,255,.08); cursor: pointer; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.mc-option-b:hover { border-color: rgba(255,255,255,.22); box-shadow: 0 0 0 4px rgba(255,255,255,.03), 0 8px 32px rgba(0,0,0,.2); }
+
+.mc-option-header { padding: 24px 28px 20px; }
+.mc-option-a .mc-option-header { background: rgba(16,185,129,.07); }
+.mc-option-b .mc-option-header { background: rgba(255,255,255,.03); }
+
+.mc-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.07em; padding: 3px 10px; border-radius: 50px; margin-bottom: 10px;
+}
+.mc-badge-green { background: rgba(16,185,129,.15); color: #10b981; border: 1px solid rgba(16,185,129,.3); }
+.mc-badge-grey  { background: rgba(255,255,255,.06); color: rgba(255,255,255,.4); border: 1px solid rgba(255,255,255,.1); }
+
+.mc-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.mc-title-dim { color: rgba(255,255,255,.5) !important; }
+.mc-desc { font-size: 0.76rem; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+/* Plan columns */
+.mc-plans {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border-top: 1px solid rgba(16,185,129,.15);
+}
+.mc-plan {
+  padding: 18px 20px;
+  border-right: 1px solid rgba(255,255,255,.06);
+  cursor: default;
+  transition: background 0.18s ease;
+}
+.mc-plan:last-child { border-right: none; }
+.mc-plan:hover {
+  background: rgba(16,185,129,.12);
+}
+.mc-plan-featured { background: rgba(167,139,250,.05); border-left: 1px solid rgba(167,139,250,.15) !important; border-right: 1px solid rgba(167,139,250,.15) !important; }
+.mc-plan-featured:hover { background: rgba(167,139,250,.16) !important; }
+
+.mc-plan-name { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,.4); margin-bottom: 12px; }
+.mc-plan-name-purple { color: #a78bfa !important; }
+
+.mc-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; padding: 4px 0; color: rgba(255,255,255,.75); }
+.mc-row span:last-child { font-weight: 700; color: #fff; }
+.mc-dim span:last-child { color: rgba(255,255,255,.4) !important; font-weight: 500 !important; }
+.mc-purple { color: #a78bfa !important; }
+
+.mc-total {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid rgba(16,185,129,.25);
+  font-size: 0.7rem; color: rgba(255,255,255,.45);
+  gap: 3px;
+}
+.mc-total-purple { border-top-color: rgba(167,139,250,.25) !important; }
+.mc-total-num { font-size: 1.15rem; font-weight: 900; color: #10b981; }
+.mc-total-purple .mc-total-num { color: #a78bfa !important; }
+
+/* Perks row */
+.mc-perks {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 16px 28px; background: rgba(16,185,129,.04);
+  border-top: 1px solid rgba(16,185,129,.1);
+}
+.mc-perk { font-size: 0.68rem; font-weight: 600; color: #10b981; background: rgba(16,185,129,.1); border-radius: 50px; padding: 3px 10px; }
+
+/* Option B plans */
+.mc-plans-b {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border-top: 1px solid rgba(255,255,255,.06);
+}
+.mc-plan-b {
+  padding: 18px 20px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,.05);
+  cursor: default;
+  transition: background 0.18s ease;
+}
+.mc-plan-b:last-child { border-right: none; }
+.mc-plan-b:hover {
+  background: rgba(255,255,255,.07);
+}
+.mc-plan-b-featured { background: rgba(167,139,250,.04); }
+.mc-plan-b-featured:hover { background: rgba(167,139,250,.14) !important; }
+
+.mc-plan-b-price { font-size: 1.15rem; font-weight: 900; color: rgba(255,255,255,.5); margin: 8px 0 4px; text-align: center; }
+.mc-plan-b-price span { font-size: 0.7rem; font-weight: 400; color: rgba(255,255,255,.25); }
+.mc-plan-b-limits { font-size: 0.62rem; color: rgba(255,255,255,.3); line-height: 1.5; margin-bottom: 8px; }
+.mc-plan-b-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; color: rgba(167,139,250,.5); background: rgba(167,139,250,.07); border: 1px solid rgba(167,139,250,.12); border-radius: 50px; padding: 2px 8px; }
+
+.mc-option-b-note { font-size: 0.72rem; color: rgba(255,255,255,.3); padding: 12px 28px 18px; font-style: italic; }
+
+@media (max-width: 640px) {
+  .mc-plans, .mc-plans-b { grid-template-columns: 1fr; }
+  .mc-plan, .mc-plan-b { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.06); }
+}
+
+/* ── Accordion plan details ── */
+.cpd-toggle {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+.cpd-toggle:hover { opacity: 0.9; }
+.cpd-chevron {
+  position: absolute; right: 24px; top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,.3);
+  transition: transform 0.3s ease;
+  display: flex; align-items: center;
+}
+.cp-plan-detail-card.open .cpd-chevron {
+  transform: translateY(-50%) rotate(180deg);
+}
+.cpd-body {
+  display: none;
+  overflow: hidden;
+}
+.cp-plan-detail-card.open .cpd-body {
+  display: block;
+}
+</style>
+<script>
+function togglePlan(header) {
+  var card = header.closest('.cp-plan-detail-card');
+  card.classList.toggle('open');
+}
+</script>

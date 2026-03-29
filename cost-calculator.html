@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Taskboost.ai — Internal Cost Calculator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, system-ui, sans-serif; background: #0f0a1e; color: #fff; padding: 2rem; min-height: 100vh; }
+  h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.25rem; }
+  .sub { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-bottom: 2rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media(max-width:700px){ .grid { grid-template-columns: 1fr; } }
+  .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.5rem; }
+  .card h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(200,180,255,0.6); margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1rem; }
+  label { display: block; font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 0.35rem; }
+  input[type=number], select {
+    width: 100%; padding: 0.55rem 0.75rem;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; color: #fff; font-size: 0.9rem;
+  }
+  input[type=number]:focus, select:focus { outline: 2px solid #7c3aed; }
+  .hint { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.25rem; }
+  .results { margin-top: 1.5rem; }
+  .result-row { display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.88rem; }
+  .result-row:last-child { border-bottom: none; }
+  .result-label { color: rgba(255,255,255,0.6); }
+  .result-val { font-weight: 700; color: #fff; }
+  .result-val.green { color: #10b981; }
+  .result-val.red { color: #f87171; }
+  .result-val.purple { color: #a78bfa; }
+  .total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding: 1rem; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; }
+  .total-label { font-size: 0.9rem; font-weight: 700; }
+  .total-val { font-size: 1.4rem; font-weight: 800; color: #10b981; }
+  .margin-bar-wrap { margin-top: 0.75rem; }
+  .margin-bar-bg { background: rgba(255,255,255,0.08); border-radius: 50px; height: 8px; overflow: hidden; margin-top: 0.4rem; }
+  .margin-bar { background: linear-gradient(90deg,#7c3aed,#10b981); height: 100%; border-radius: 50px; transition: width 0.4s; }
+  .section-title { font-size: 1rem; font-weight: 700; margin: 2rem 0 1rem; color: #fff; }
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .summary-table th { text-align: left; padding: 0.5rem 0.75rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(200,180,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .summary-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+  .summary-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; }
+  .tag-green { background: rgba(16,185,129,0.15); color: #10b981; }
+  .tag-yellow { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .tag-purple { background: rgba(139,92,246,0.15); color: #a78bfa; }
+</style>
+</head>
+<body>
+
+<h1>Cost Calculator</h1>
+<p class="sub">Internal tool — Taskboost.ai. Calculate profit per client before quoting.</p>
+
+<div class="grid">
+
+  <!-- LEFT: Project Config -->
+  <div class="card">
+    <h2>Project Setup</h2>
+
+    <div class="field">
+      <label>Plan</label>
+      <select id="plan" onchange="calc()">
+        <option value="starter">Starter — $1,000 build</option>
+        <option value="growth" selected>Growth — $2,000 build</option>
+        <option value="full">Full System — $4,500 build</option>
+        <option value="custom">Custom (enter manually)</option>
+      </select>
+    </div>
+
+    <div class="field" id="custom-price-field" style="display:none">
+      <label>Custom build price ($)</label>
+      <input type="number" id="custom-price" value="3000" oninput="calc()"/>
+    </div>
+
+    <div class="field">
+      <label>Monthly support included?</label>
+      <select id="support" onchange="calc()">
+        <option value="no">No — one-time only</option>
+        <option value="yes" selected>Yes — add monthly support</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Your hours to build</label>
+      <input type="number" id="hours" value="10" oninput="calc()"/>
+      <p class="hint">How many hours will you spend building this?</p>
+    </div>
+
+    <div class="field">
+      <label>Your hourly rate ($)</label>
+      <input type="number" id="rate" value="50" oninput="calc()"/>
+      <p class="hint">What you value your time at</p>
+    </div>
+  </div>
+
+  <!-- RIGHT: Monthly Costs -->
+  <div class="card">
+    <h2>Estimated Monthly Costs (what you pay)</h2>
+
+    <!-- n8n hosting -->
+    <div class="field">
+      <label>n8n hosting provider</label>
+      <select id="n8n-provider" onchange="onN8nProvider()">
+        <option value="5">Hetzner VPS (cheapest) — €4–6/mo shared</option>
+        <option value="8">DigitalOcean Droplet — $8/mo shared</option>
+        <option value="20">n8n Cloud Starter — €20/mo</option>
+        <option value="50">n8n Cloud Pro — €50/mo</option>
+        <option value="custom-n8n">Custom / I know the cost</option>
+      </select>
+      <p class="hint">This is split across all your clients. On shared VPS, each client costs ~$2–5.</p>
+    </div>
+    <div class="field" id="n8n-custom-field" style="display:none">
+      <label>Your share per client ($)</label>
+      <input type="number" id="n8n" value="5" oninput="calc()"/>
+    </div>
+    <!-- AI API -->
+    <div class="field">
+      <label>AI model provider</label>
+      <select id="ai-provider" onchange="onAiProvider()">
+        <option value="0">Client pays own API key — $0 to you ✅</option>
+        <option value="3">GPT-4o-mini (you cover) — ~$3/mo avg</option>
+        <option value="10">GPT-4o (you cover) — ~$10/mo avg</option>
+        <option value="2">Claude Haiku (you cover) — ~$2/mo avg</option>
+        <option value="8">Claude Sonnet (you cover) — ~$8/mo avg</option>
+        <option value="custom-ai">Custom / enter manually</option>
+      </select>
+      <p class="hint">Recommended: have clients use their own API key. You connect it, they pay usage directly.</p>
+    </div>
+    <div class="field" id="ai-custom-field" style="display:none">
+      <label>AI API cost you pay per month ($)</label>
+      <input type="number" id="api-custom-val" value="5" oninput="calc()"/>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="field">
+      <label>WhatsApp API provider</label>
+      <select id="wa-provider" onchange="onWaProvider()">
+        <option value="0">Client pays Meta directly — $0 to you ✅</option>
+        <option value="30">Twilio (you cover) — ~$30/mo avg</option>
+        <option value="50">360dialog (you cover) — €50/mo flat</option>
+        <option value="custom-wa">Custom / enter manually</option>
+      </select>
+      <p class="hint">Meta charges ~$0.04–0.08 per conversation. Best practice: client opens their own account.</p>
+    </div>
+    <div class="field" id="wa-custom-field" style="display:none">
+      <label>WhatsApp cost you pay per month ($)</label>
+      <input type="number" id="wa-custom-val" value="0" oninput="calc()"/>
+    </div>
+
+    <!-- Misc -->
+    <div class="field">
+      <label>Other tools / misc ($)</label>
+      <input type="number" id="misc" value="5" oninput="calc()"/>
+      <p class="hint">CRM connectors, monitoring, Stripe fees, etc.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Results -->
+<div class="card" style="margin-top:1.5rem">
+  <h2>Results</h2>
+  <div class="grid">
+    <div>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:0.75rem;">ONE-TIME BUILD</p>
+      <div class="results" id="build-results"></div>
+    </div>
+    <div id="monthly-col">
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:0.75rem;">MONTHLY SUPPORT</p>
+      <div class="results" id="monthly-results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- High Volume / Peak Section -->
+<p class="section-title">High Volume Client — Peak Traffic Manager</p>
+<div class="card">
+  <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">Use this to calculate real API costs for high-volume clients, set token limits, and decide how to charge for peak usage.</p>
+
+  <div class="grid">
+    <div>
+      <h2>Volume & Model Config</h2>
+
+      <div class="field">
+        <label>AI model for this client</label>
+        <select id="ai-model" onchange="calcPeak()">
+          <option value="0.00015">GPT-4o-mini — $0.15/1M tokens (cheapest, recommended)</option>
+          <option value="0.0025">GPT-4o — $2.50/1M tokens (smarter, more expensive)</option>
+          <option value="0.0008" selected>Claude Haiku — $0.80/1M tokens (fast + cheap)</option>
+          <option value="0.003">Claude Sonnet — $3.00/1M tokens (best quality)</option>
+        </select>
+        <p class="hint">This defines what you charge your client for AI usage. Pick the model you plan to deploy.</p>
+      </div>
+
+      <div class="field">
+        <label>Max tokens per conversation (your hard limit)</label>
+        <input type="number" id="max-tokens" value="800" min="100" max="8000" oninput="clampInput(this,100,8000); calcPeak()"/>
+        <p class="hint">
+          This is the cap you set in n8n on the AI node (<code>max_tokens</code> field).
+          It hard-stops the AI from using more tokens per reply — protecting your costs.<br/>
+          <strong>Simple bot:</strong> 400 · <strong>Medium:</strong> 800 · <strong>Complex agent:</strong> 1,500
+        </p>
+      </div>
+
+      <div class="field">
+        <label>Normal conversations per day</label>
+        <input type="number" id="normal-convos" value="90" min="1" max="10000" oninput="clampInput(this,1,10000); calcPeak()"/>
+        <p class="hint">Average WhatsApp conversations on a regular day</p>
+      </div>
+
+      <div class="field">
+        <label>Peak conversations per day</label>
+        <input type="number" id="peak-convos" value="2000" min="1" max="100000" oninput="clampInput(this,1,100000); calcPeak()"/>
+        <p class="hint">Conversations during a busy day — sale, campaign, Black Friday</p>
+      </div>
+
+      <div class="field">
+        <label>Peak days per month</label>
+        <input type="number" id="peak-days" value="5" min="1" max="30" oninput="clampInput(this,1,30); calcPeak()"/>
+        <p class="hint">How many high-traffic days happen per month? (1–30)</p>
+      </div>
+
+      <div class="field">
+        <label>WhatsApp cost per conversation ($)</label>
+        <input type="number" id="wa-per-convo" value="0.06" min="0" max="1" step="0.01" oninput="clampInput(this,0,1); calcPeak()"/>
+        <p class="hint">Meta: ~$0.04–0.08 per conversation. Enter 0 if client pays their own Meta account.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>Cost Breakdown</h2>
+      <div id="peak-results" style="margin-top:0.5rem;"></div>
+
+      <div style="margin-top:1.5rem;">
+        <h2>How to Charge & Protect Yourself</h2>
+        <div id="peak-recommendation" style="margin-top:0.5rem;"></div>
+      </div>
+
+      <div style="margin-top:1.5rem;padding:1.1rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:12px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#a78bfa;font-weight:700;margin-bottom:0.75rem;">How to enforce the token limit in n8n</div>
+        <div id="token-explainer" style="font-size:0.8rem;color:rgba(255,255,255,0.6);line-height:1.6;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Summary table -->
+<p class="section-title">Client Profitability Summary</p>
+<div class="card">
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Month 1</th>
+        <th>Month 2+</th>
+        <th>Year 1 total</th>
+        <th>Margin</th>
+      </tr>
+    </thead>
+    <tbody id="summary-body"></tbody>
+  </table>
+</div>
+
+<script>
+function onN8nProvider(){
+  const v = document.getElementById('n8n-provider').value;
+  const f = document.getElementById('n8n-custom-field');
+  f.style.display = v === 'custom-n8n' ? '' : 'none';
+  calc();
+}
+function onAiProvider(){
+  const v = document.getElementById('ai-provider').value;
+  document.getElementById('ai-custom-field').style.display = v === 'custom-ai' ? '' : 'none';
+  calc();
+}
+function onWaProvider(){
+  const v = document.getElementById('wa-provider').value;
+  document.getElementById('wa-custom-field').style.display = v === 'custom-wa' ? '' : 'none';
+  calc();
+}
+function getN8n(){
+  const v = document.getElementById('n8n-provider').value;
+  if(v === 'custom-n8n') return +document.getElementById('n8n').value;
+  return +v;
+}
+function getApi(){
+  const v = document.getElementById('ai-provider').value;
+  if(v === 'custom-ai') return +document.getElementById('api-custom-val').value;
+  return +v;
+}
+function getWa(){
+  const v = document.getElementById('wa-provider').value;
+  if(v === 'custom-wa') return +document.getElementById('wa-custom-val').value;
+  return +v;
+}
+
+const plans = {
+  starter: { build: 1000, support: 199 },
+  growth:  { build: 2000, support: 299 },
+  full:    { build: 4500, support: 499 },
+  custom:  { build: 0,    support: 0   }
+};
+
+function fmt(n){ return '$' + Math.round(n).toLocaleString(); }
+function pct(n){ return Math.round(n) + '%'; }
+
+function calc(){
+  const planKey = document.getElementById('plan').value;
+  const customField = document.getElementById('custom-price-field');
+  customField.style.display = planKey === 'custom' ? '' : 'none';
+
+  const plan = plans[planKey];
+  const buildPrice = planKey === 'custom'
+    ? +document.getElementById('custom-price').value
+    : plan.build;
+  const supportPrice = planKey === 'custom'
+    ? Math.round(buildPrice * 0.15)
+    : plan.support;
+
+  const hasSupport = document.getElementById('support').value === 'yes';
+  const hours   = +document.getElementById('hours').value;
+  const rate    = +document.getElementById('rate').value;
+  const n8n     = getN8n();
+  const api     = getApi();
+  const wa      = getWa();
+  const misc    = +document.getElementById('misc').value;
+
+  const timeCost    = hours * rate;
+  const toolCost    = 10; // one-time setup misc
+  const buildCost   = timeCost + toolCost;
+  const buildProfit = buildPrice - buildCost;
+  const buildMargin = (buildProfit / buildPrice) * 100;
+
+  const monthlyCost   = n8n + api + wa + misc;
+  const monthlyProfit = supportPrice - monthlyCost;
+  const monthlyMargin = (monthlyProfit / supportPrice) * 100;
+
+  // Build results
+  document.getElementById('build-results').innerHTML = `
+    <div class="result-row"><span class="result-label">You charge</span><span class="result-val green">${fmt(buildPrice)}</span></div>
+    <div class="result-row"><span class="result-label">Your time (${hours}h × $${rate})</span><span class="result-val red">−${fmt(timeCost)}</span></div>
+    <div class="result-row"><span class="result-label">Tool / setup costs</span><span class="result-val red">−${fmt(toolCost)}</span></div>
+    <div class="total-row"><span class="total-label">Net profit</span><span class="total-val">${fmt(buildProfit)}</span></div>
+    <div class="margin-bar-wrap">
+      <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.4)"><span>Margin</span><span>${pct(buildMargin)}</span></div>
+      <div class="margin-bar-bg"><div class="margin-bar" style="width:${Math.min(buildMargin,100)}%"></div></div>
+    </div>
+  `;
+
+  // Monthly results
+  const monthlyCol = document.getElementById('monthly-col');
+  if(hasSupport){
+    monthlyCol.style.opacity = '1';
+    document.getElementById('monthly-results').innerHTML = `
+      <div class="result-row"><span class="result-label">You charge</span><span class="result-val green">${fmt(supportPrice)}/mo</span></div>
+      <div class="result-row"><span class="result-label">n8n hosting</span><span class="result-val red">−${fmt(n8n)}</span></div>
+      <div class="result-row"><span class="result-label">AI API costs</span><span class="result-val red">−${fmt(api)}</span></div>
+      <div class="result-row"><span class="result-label">WhatsApp API</span><span class="result-val red">−${fmt(wa)}</span></div>
+      <div class="result-row"><span class="result-label">Misc tools</span><span class="result-val red">−${fmt(misc)}</span></div>
+      <div class="total-row"><span class="total-label">Net/mo</span><span class="total-val">${fmt(monthlyProfit)}</span></div>
+      <div class="margin-bar-wrap">
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.4)"><span>Margin</span><span>${pct(monthlyMargin)}</span></div>
+        <div class="margin-bar-bg"><div class="margin-bar" style="width:${Math.min(monthlyMargin,100)}%"></div></div>
+      </div>
+    `;
+  } else {
+    monthlyCol.style.opacity = '0.3';
+    document.getElementById('monthly-results').innerHTML = `<p style="font-size:0.82rem;color:rgba(255,255,255,0.3);margin-top:1rem;">No monthly support selected</p>`;
+  }
+
+  // Summary table
+  const month1NoSupport  = buildProfit;
+  const month1Support    = buildProfit + monthlyProfit;
+  const year1NoSupport   = buildProfit;
+  const year1Support     = buildProfit + (monthlyProfit * 12);
+  const yr1MarginNoSup   = (year1NoSupport / buildPrice) * 100;
+  const yr1MarginSup     = (year1Support / (buildPrice + supportPrice*12)) * 100;
+
+  document.getElementById('summary-body').innerHTML = `
+    <tr>
+      <td>One-time only <span class="tag tag-yellow">no support</span></td>
+      <td>${fmt(month1NoSupport)}</td>
+      <td><span style="color:rgba(255,255,255,0.3)">$0</span></td>
+      <td>${fmt(year1NoSupport)}</td>
+      <td><span class="tag tag-yellow">${pct(yr1MarginNoSup)}</span></td>
+    </tr>
+    ${hasSupport ? `<tr>
+      <td>Build + support <span class="tag tag-green">recommended</span></td>
+      <td>${fmt(month1Support)}</td>
+      <td>${fmt(monthlyProfit)}/mo</td>
+      <td>${fmt(year1Support)}</td>
+      <td><span class="tag tag-green">${pct(yr1MarginSup)}</span></td>
+    </tr>` : ''}
+    ${hasSupport ? `<tr>
+      <td>10 clients on support <span class="tag tag-purple">scale</span></td>
+      <td>—</td>
+      <td>${fmt(monthlyProfit * 10)}/mo</td>
+      <td>${fmt(year1Support * 10)}</td>
+      <td><span class="tag tag-purple">${pct(yr1MarginSup)}</span></td>
+    </tr>` : ''}
+  `;
+}
+
+calc();
+// calcPeak called at bottom after definition
+
+function clampInput(el, min, max){
+  let v = +el.value;
+  if(isNaN(v) || v < min) v = min;
+  if(v > max) v = max;
+  el.value = v;
+}
+
+function calcPeak(){
+  const normalConvos  = Math.max(1, +document.getElementById('normal-convos').value);
+  const peakConvos    = Math.max(1, +document.getElementById('peak-convos').value);
+  const peakDays      = Math.min(30, Math.max(1, +document.getElementById('peak-days').value));
+  const maxTokens     = Math.max(100, +document.getElementById('max-tokens').value);
+  const tokensPerConvo= maxTokens; // use the cap as the cost basis
+  const aiRate        = +document.getElementById('ai-model').value;
+  const waPerConvo    = +document.getElementById('wa-per-convo').value;
+  const modelName     = document.getElementById('ai-model').options[document.getElementById('ai-model').selectedIndex].text.split('—')[0].trim();
+
+  const normalDays = 30 - peakDays;
+
+  // Token costs
+  const normalTokens = normalConvos * tokensPerConvo * normalDays;
+  const peakTokens   = peakConvos   * tokensPerConvo * peakDays;
+  const totalTokens  = normalTokens + peakTokens;
+
+  const normalAiCost = normalTokens / 1_000_000 * aiRate;
+  const peakAiCost   = peakTokens   / 1_000_000 * aiRate;
+  const totalAiCost  = normalAiCost + peakAiCost;
+
+  // WhatsApp costs
+  const normalWaCost = normalConvos * normalDays * waPerConvo;
+  const peakWaCost   = peakConvos   * peakDays   * waPerConvo;
+  const totalWaCost  = normalWaCost + peakWaCost;
+
+  const totalCost    = totalAiCost + totalWaCost;
+  const normalCost   = normalAiCost + normalWaCost;
+  const peakOnlyCost = peakAiCost   + peakWaCost;
+
+  const peakMultiplier = peakConvos / normalConvos;
+  const costSpike      = totalCost / (normalAiCost + normalWaCost) * (normalDays / 30 + peakDays / 30);
+
+  // Recommended charge: cover costs + 60% buffer + surge fee
+  const suggestedBase   = Math.ceil((totalCost * 1.6) / 10) * 10;
+  const suggestedSurge  = Math.ceil((peakOnlyCost * 0.5) / 5) * 5;
+
+  const isHighRisk = peakMultiplier >= 5;
+  const riskColor  = isHighRisk ? '#f87171' : peakMultiplier >= 3 ? '#f59e0b' : '#10b981';
+  const riskLabel  = isHighRisk ? 'HIGH RISK' : peakMultiplier >= 3 ? 'MODERATE' : 'LOW';
+
+  document.getElementById('peak-results').innerHTML = `
+    <div class="result-row"><span class="result-label">Normal days API cost</span><span class="result-val">${fmt(normalAiCost)}/mo</span></div>
+    <div class="result-row"><span class="result-label">Peak days API cost</span><span class="result-val" style="color:#f59e0b">${fmt(peakAiCost)}/mo</span></div>
+    <div class="result-row"><span class="result-label">Normal days WhatsApp cost</span><span class="result-val">${fmt(normalWaCost)}/mo</span></div>
+    <div class="result-row"><span class="result-label">Peak days WhatsApp cost</span><span class="result-val" style="color:#f59e0b">${fmt(peakWaCost)}/mo</span></div>
+    <div class="result-row"><span class="result-label">Total tokens/mo</span><span class="result-val">${Math.round(totalTokens/1000)}K</span></div>
+    <div class="total-row" style="margin-top:1rem;">
+      <span class="total-label">Total cost/mo (you)</span>
+      <span class="total-val" style="color:${totalCost > 50 ? '#f59e0b' : '#10b981'}">${fmt(totalCost)}</span>
+    </div>
+    <div style="margin-top:1rem;padding:0.75rem;background:rgba(255,255,255,0.04);border-radius:10px;">
+      <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.4rem;">
+        <span style="color:rgba(255,255,255,0.4)">Peak spike</span>
+        <span style="color:${riskColor};font-weight:700">${peakMultiplier.toFixed(1)}× normal · ${riskLabel}</span>
+      </div>
+      <div class="margin-bar-bg"><div class="margin-bar" style="width:${Math.min((peakMultiplier/10)*100,100)}%;background:linear-gradient(90deg,#10b981,${riskColor})"></div></div>
+    </div>
+  `;
+
+  document.getElementById('peak-recommendation').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <div style="padding:1rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#10b981;font-weight:700;margin-bottom:0.4rem;">Option A — Flat monthly (safe)</div>
+        <div style="font-size:1.1rem;font-weight:800;color:#fff;">${fmt(suggestedBase)}/mo</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;">Covers all costs including peak. Easiest to sell. You absorb the risk.</div>
+      </div>
+      <div style="padding:1rem;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:10px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#a78bfa;font-weight:700;margin-bottom:0.4rem;">Option B — Base + surge fee (fair)</div>
+        <div style="font-size:1.1rem;font-weight:800;color:#fff;">${fmt(suggestedBase * 0.7)}/mo + ${fmt(suggestedSurge)} peak days</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;">Lower base, client pays a flat surge fee during high-traffic months. Transparent.</div>
+      </div>
+      <div style="padding:1rem;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;">
+        <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:#f59e0b;font-weight:700;margin-bottom:0.4rem;">Option C — Client pays API directly (best)</div>
+        <div style="font-size:1.1rem;font-weight:800;color:#fff;">Your support fee only</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4);margin-top:0.25rem;">Client opens own OpenAI + Meta accounts. You connect them. Zero API risk to you. Recommended for high-volume clients.</div>
+      </div>
+      ${isHighRisk ? `<div style="padding:0.75rem 1rem;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:10px;font-size:0.8rem;color:#f87171;">⚠️ Peak is ${peakMultiplier.toFixed(0)}× normal traffic. Strongly recommend Option C — pass API costs to client to protect your margin.</div>` : ''}
+    </div>
+  `;
+
+  // Token explainer
+  const aiModelId = document.getElementById('ai-model').value === '0.00015' ? 'openai' : 'claude';
+  document.getElementById('token-explainer').innerHTML = `
+    <p style="margin-bottom:0.6rem;">You set <strong style="color:#fff">${maxTokens} max_tokens</strong> on the AI node in n8n. This means:</p>
+    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:0.4rem;">
+      <li>✅ The AI <strong style="color:#fff">cannot reply with more than ${maxTokens} tokens</strong> per message (~${Math.round(maxTokens*0.75)} words)</li>
+      <li>✅ Your worst-case cost per reply is <strong style="color:#fff">${fmt(maxTokens / 1_000_000 * aiRate * 1000)}</strong> per 1,000 messages</li>
+      <li>✅ No surprise bills — cost is fully predictable</li>
+    </ul>
+    <p style="margin-top:0.75rem;color:rgba(255,255,255,0.4);">
+      In n8n → AI Agent node → Model → set <code style="background:rgba(255,255,255,0.1);padding:0.1rem 0.4rem;border-radius:4px;">Max Tokens = ${maxTokens}</code>.
+      Also add a system prompt rule: <em>"Keep all responses under ${Math.round(maxTokens*0.6)} words."</em>
+    </p>
+  `;
+}
+
+calcPeak();
+</script>
+</body>
+</html>
