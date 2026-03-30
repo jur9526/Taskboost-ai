@@ -4779,3 +4779,104 @@ p {
   .pcta-right { width: 100%; }
   .pcta-btn-secondary, .pcta-btn-primary, .pcta-btn-wa { flex: 1; justify-content: center; }
 }
+
+/* ── Support Section ── */
+.support-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+@media (max-width: 768px) { .support-grid { grid-template-columns: 1fr; } }
+
+.support-card {
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px;
+  padding: 32px;
+  background: rgba(255,255,255,.02);
+  position: relative;
+}
+.support-card-featured {
+  border-color: rgba(16,185,129,.3);
+  background: rgba(16,185,129,.04);
+}
+
+.support-recommended-badge {
+  position: absolute;
+  top: -13px; left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 14px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.support-card-label {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 6px;
+}
+.support-card-label-green { color: #10b981; }
+
+.support-card-desc {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,.35);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.support-list {
+  list-style: none;
+  padding: 0; margin: 0 0 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.support-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.5;
+}
+.support-list li svg { flex-shrink: 0; margin-top: 2px; }
+
+.support-plans-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.support-plan-pill {
+  font-size: 0.7rem;
+  padding: 5px 12px;
+  border-radius: 50px;
+  background: rgba(16,185,129,.1);
+  border: 1px solid rgba(16,185,129,.2);
+  color: rgba(255,255,255,.6);
+}
+.support-plan-pill strong { color: #10b981; font-weight: 800; }
+.support-plan-pill-purple { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.2); }
+.support-plan-pill-purple strong { color: #a78bfa; }
+.support-plan-pill-gold { background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.2); }
+.support-plan-pill-gold strong { color: #f59e0b; }
+
+.support-nudge {
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,.35);
+  font-style: italic;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Chapter labels ── */
+.section-label[class*="section-label"] {
+  letter-spacing: 0.1em;
+}
